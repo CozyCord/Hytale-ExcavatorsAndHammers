@@ -1,0 +1,400 @@
+package net.cozystudios.excavatorsandhammers;
+
+import com.hypixel.hytale.component.AddReason;
+import com.hypixel.hytale.component.ArchetypeChunk;
+import com.hypixel.hytale.component.CommandBuffer;
+import com.hypixel.hytale.component.Holder;
+import com.hypixel.hytale.component.Ref;
+import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.component.query.Query;
+import com.hypixel.hytale.component.system.EntityEventSystem;
+import com.hypixel.hytale.server.core.event.events.ecs.BreakBlockEvent;
+import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.universe.world.World;
+import com.hypixel.hytale.server.core.inventory.ItemStack;
+import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
+import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockGathering;
+import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockBreakingDropType;
+import com.hypixel.hytale.server.core.modules.item.ItemModule;
+import com.hypixel.hytale.server.core.modules.entity.item.ItemComponent;
+import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
+import com.hypixel.hytale.math.vector.Vector3i;
+import com.hypixel.hytale.math.vector.Vector3d;
+import com.hypixel.hytale.math.vector.Vector3f;
+import com.hypixel.hytale.logger.HytaleLogger;
+
+import java.util.Set;
+import java.util.HashSet;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.concurrent.ConcurrentHashMap;
+
+public class AreaMiningSystem extends EntityEventSystem<EntityStore, BreakBlockEvent> {
+
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
+
+    private static final Set<String> HAMMER_IDS = new HashSet<>();
+    private static final Set<String> EXCAVATOR_IDS = new HashSet<>();
+    private static final Set<Long> PROCESSING_BLOCKS = ConcurrentHashMap.newKeySet();
+
+    private enum MiningPlane {
+        XZ,
+        XY,
+        ZY
+    }
+
+    static {
+        HAMMER_IDS.add("CozyStudios_ExcavatorsAndHammers_Copper_Hammer");
+        HAMMER_IDS.add("CozyStudios_ExcavatorsAndHammers_Iron_Hammer");
+        HAMMER_IDS.add("CozyStudios_ExcavatorsAndHammers_Cobalt_Hammer");
+        HAMMER_IDS.add("CozyStudios_ExcavatorsAndHammers_Thorium_Hammer");
+        HAMMER_IDS.add("CozyStudios_ExcavatorsAndHammers_Mithril_Hammer");
+        HAMMER_IDS.add("CozyStudios_ExcavatorsAndHammers_Onyxium_Hammer");
+        HAMMER_IDS.add("CozyStudios_ExcavatorsAndHammers_Adamantite_Hammer");
+
+        EXCAVATOR_IDS.add("CozyStudios_ExcavatorsAndHammers_Copper_Excavator");
+        EXCAVATOR_IDS.add("CozyStudios_ExcavatorsAndHammers_Iron_Excavator");
+        EXCAVATOR_IDS.add("CozyStudios_ExcavatorsAndHammers_Cobalt_Excavator");
+        EXCAVATOR_IDS.add("CozyStudios_ExcavatorsAndHammers_Thorium_Excavator");
+        EXCAVATOR_IDS.add("CozyStudios_ExcavatorsAndHammers_Mithril_Excavator");
+        EXCAVATOR_IDS.add("CozyStudios_ExcavatorsAndHammers_Onyxium_Excavator");
+        EXCAVATOR_IDS.add("CozyStudios_ExcavatorsAndHammers_Adamantite_Excavator");
+    }
+
+    public AreaMiningSystem() {
+        super(BreakBlockEvent.class);
+    }
+
+    @Override
+    public Query<EntityStore> getQuery() {
+        return PlayerRef.getComponentType();
+    }
+
+    @Override
+    public void handle(int entityIndex, ArchetypeChunk<EntityStore> chunk,
+                       Store<EntityStore> store, CommandBuffer<EntityStore> commandBuffer,
+                       BreakBlockEvent event) {
+
+        Ref ref = chunk.getReferenceTo(entityIndex);
+        Player player = store.getComponent(ref, Player.getComponentType());
+
+        if (player == null) {
+            return;
+        }
+
+        World world = player.getWorld();
+        if (world == null) {
+            return;
+        }
+
+        ItemStack item = event.getItemInHand();
+        if (item == null) {
+            return;
+        }
+
+        String itemId = item.getItemId();
+        if (itemId == null) {
+            return;
+        }
+
+        boolean isHammer = HAMMER_IDS.contains(itemId);
+        boolean isExcavator = EXCAVATOR_IDS.contains(itemId);
+
+        if (!isHammer && !isExcavator) {
+            return;
+        }
+
+        Vector3i targetPos = event.getTargetBlock();
+        if (targetPos == null) {
+            return;
+        }
+
+        int centerX = targetPos.getX();
+        int centerY = targetPos.getY();
+        int centerZ = targetPos.getZ();
+
+        MiningPlane plane = getMiningPlaneFromPlayer(player, targetPos);
+
+        long posKey = packPosition(centerX, centerY, centerZ);
+        if (!PROCESSING_BLOCKS.add(posKey)) {
+            return;
+        }
+
+        try {
+            breakSurroundingBlocks(world, centerX, centerY, centerZ, plane, isHammer);
+        } finally {
+            PROCESSING_BLOCKS.remove(posKey);
+        }
+    }
+
+    private MiningPlane getMiningPlaneFromPlayer(Player player, Vector3i targetBlock) {
+        try {
+            TransformComponent transform = player.getTransformComponent();
+            if (transform == null) {
+                return MiningPlane.XY;
+            }
+
+            Vector3d playerPos = transform.getPosition();
+            if (playerPos == null) {
+                return MiningPlane.XY;
+            }
+
+            double blockCenterX = targetBlock.getX() + 0.5;
+            double blockCenterY = targetBlock.getY() + 0.5;
+            double blockCenterZ = targetBlock.getZ() + 0.5;
+
+            double playerEyeX = playerPos.getX();
+            double playerEyeY = playerPos.getY() + 1.6;
+            double playerEyeZ = playerPos.getZ();
+
+            double dx = blockCenterX - playerEyeX;
+            double dy = blockCenterY - playerEyeY;
+            double dz = blockCenterZ - playerEyeZ;
+
+            double absDx = Math.abs(dx);
+            double absDy = Math.abs(dy);
+            double absDz = Math.abs(dz);
+
+            if (absDy > absDx && absDy > absDz) {
+                return MiningPlane.XZ;
+            } else if (absDz > absDx) {
+                return MiningPlane.XY;
+            } else {
+                return MiningPlane.ZY;
+            }
+        } catch (Exception e) {
+            LOGGER.atWarning().withCause(e).log("Error calculating mining plane");
+        }
+
+        return MiningPlane.XY;
+    }
+
+    private void breakSurroundingBlocks(World world, int centerX, int centerY, int centerZ, MiningPlane plane, boolean isHammer) {
+        for (int d1 = -1; d1 <= 1; d1++) {
+            for (int d2 = -1; d2 <= 1; d2++) {
+                if (d1 == 0 && d2 == 0) {
+                    continue;
+                }
+
+                int x, y, z;
+                switch (plane) {
+                    case XZ:
+                        x = centerX + d1;
+                        y = centerY;
+                        z = centerZ + d2;
+                        break;
+                    case XY:
+                        x = centerX + d1;
+                        y = centerY + d2;
+                        z = centerZ;
+                        break;
+                    case ZY:
+                        x = centerX;
+                        y = centerY + d2;
+                        z = centerZ + d1;
+                        break;
+                    default:
+                        continue;
+                }
+
+                long posKey = packPosition(x, y, z);
+                if (!PROCESSING_BLOCKS.add(posKey)) {
+                    continue;
+                }
+
+                try {
+                    breakBlockWithDrops(world, x, y, z, centerX, centerY, centerZ, isHammer);
+                } finally {
+                    PROCESSING_BLOCKS.remove(posKey);
+                }
+            }
+        }
+    }
+
+    private void breakBlockWithDrops(World world, int x, int y, int z, int dropX, int dropY, int dropZ, boolean isHammer) {
+        Vector3i pos = new Vector3i(x, y, z);
+        BlockType blockType = world.getBlockType(pos);
+        if (blockType == null) {
+            return;
+        }
+
+        String blockId = blockType.getId();
+
+        if (blockId == null || blockId.equals("Air") || blockId.equals("Empty") || blockId.equals("Bedrock")) {
+            return;
+        }
+
+        if (!isBlockMineableByTool(blockType, isHammer)) {
+            return;
+        }
+
+        boolean result = world.breakBlock(x, y, z, 256);
+
+        if (!result) {
+            return;
+        }
+
+        try {
+            List<ItemStack> drops = new ArrayList<>();
+            String dropItemId = blockId;
+
+            BlockGathering gathering = blockType.getGathering();
+            if (gathering != null) {
+                BlockBreakingDropType breaking = gathering.getBreaking();
+                if (breaking != null) {
+                    String specificItemId = breaking.getItemId();
+                    if (specificItemId != null) {
+                        dropItemId = specificItemId;
+                    } else {
+                        String dropListId = breaking.getDropListId();
+                        if (dropListId != null) {
+                            ItemModule itemModule = ItemModule.get();
+                            if (itemModule != null && itemModule.isEnabled()) {
+                                int quantity = breaking.getQuantity();
+                                if (quantity <= 0) quantity = 1;
+                                for (int i = 0; i < quantity; i++) {
+                                    List<ItemStack> randomDrops = itemModule.getRandomItemDrops(dropListId);
+                                    if (randomDrops != null) {
+                                        drops.addAll(randomDrops);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (drops.isEmpty() && dropItemId != null) {
+                drops.add(new ItemStack(dropItemId, 1));
+            }
+
+            Vector3i dropPos = new Vector3i(dropX, dropY, dropZ);
+            for (ItemStack drop : drops) {
+                if (drop != null && !drop.isEmpty()) {
+                    dropItemStack(world, drop, dropPos);
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.atWarning().withCause(e).log("Error spawning drops at %d, %d, %d", x, y, z);
+        }
+    }
+
+    private boolean isBlockMineableByTool(BlockType blockType, boolean isHammer) {
+        try {
+            BlockGathering gathering = blockType.getGathering();
+            if (gathering == null) {
+                return false;
+            }
+
+            String toolType = null;
+
+            try {
+                java.lang.reflect.Method method = gathering.getClass().getMethod("getToolType");
+                Object result = method.invoke(gathering);
+                if (result != null) {
+                    toolType = result.toString().toLowerCase();
+                }
+            } catch (NoSuchMethodException ignored) {}
+
+            if (toolType == null) {
+                try {
+                    java.lang.reflect.Method method = gathering.getClass().getMethod("getRequiredTool");
+                    Object result = method.invoke(gathering);
+                    if (result != null) {
+                        toolType = result.toString().toLowerCase();
+                    }
+                } catch (NoSuchMethodException ignored) {}
+            }
+
+            if (toolType == null) {
+                try {
+                    java.lang.reflect.Method method = gathering.getClass().getMethod("getTool");
+                    Object result = method.invoke(gathering);
+                    if (result != null) {
+                        toolType = result.toString().toLowerCase();
+                    }
+                } catch (NoSuchMethodException ignored) {}
+            }
+
+            if (toolType != null) {
+                if (isHammer) {
+                    return toolType.contains("pickaxe") || toolType.contains("pick");
+                } else {
+                    return toolType.contains("shovel") || toolType.contains("spade");
+                }
+            }
+
+            String blockId = blockType.getId();
+            if (blockId != null) {
+                String lowerBlockId = blockId.toLowerCase();
+
+                boolean isShovelBlock = lowerBlockId.contains("dirt") ||
+                                        lowerBlockId.contains("grass") ||
+                                        lowerBlockId.contains("sand") ||
+                                        lowerBlockId.contains("gravel") ||
+                                        lowerBlockId.contains("clay") ||
+                                        lowerBlockId.contains("mud") ||
+                                        lowerBlockId.contains("soil") ||
+                                        lowerBlockId.contains("snow") ||
+                                        lowerBlockId.contains("farmland");
+
+                boolean isPickaxeBlock = lowerBlockId.contains("stone") ||
+                                         lowerBlockId.contains("rock") ||
+                                         lowerBlockId.contains("ore") ||
+                                         lowerBlockId.contains("cobble") ||
+                                         lowerBlockId.contains("brick") ||
+                                         lowerBlockId.contains("concrete") ||
+                                         lowerBlockId.contains("terracotta") ||
+                                         lowerBlockId.contains("obsidian") ||
+                                         lowerBlockId.contains("granite") ||
+                                         lowerBlockId.contains("diorite") ||
+                                         lowerBlockId.contains("andesite") ||
+                                         lowerBlockId.contains("sandstone") ||
+                                         lowerBlockId.contains("basalt") ||
+                                         lowerBlockId.contains("mineral");
+
+                if (isHammer) {
+                    return isPickaxeBlock;
+                } else {
+                    return isShovelBlock;
+                }
+            }
+
+        } catch (Exception e) {
+            LOGGER.atWarning().withCause(e).log("Error checking tool type for block");
+        }
+
+        return true;
+    }
+
+    private void dropItemStack(World world, ItemStack itemStack, Vector3i position) {
+        Store<EntityStore> entityStore = world.getEntityStore().getStore();
+        Vector3d dropPos = position.toVector3d();
+
+        Holder<EntityStore> holder = ItemComponent.generateItemDrop(
+            entityStore,
+            itemStack,
+            dropPos,
+            Vector3f.NaN,
+            0f, 0f, 0f
+        );
+
+        if (holder == null) {
+            return;
+        }
+
+        world.execute(() -> {
+            try {
+                entityStore.addEntity(holder, AddReason.SPAWN);
+            } catch (IllegalStateException e) {
+                world.execute(() -> entityStore.addEntity(holder, AddReason.SPAWN));
+            }
+        });
+    }
+
+    private static long packPosition(int x, int y, int z) {
+        return ((long)(x & 0x3FFFFFF) << 38) | ((long)(z & 0x3FFFFFF) << 12) | (y & 0xFFF);
+    }
+}

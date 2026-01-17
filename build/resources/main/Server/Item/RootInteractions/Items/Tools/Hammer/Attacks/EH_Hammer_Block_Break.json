@@ -1,0 +1,10 @@
+{
+  "Interactions": [
+    "EH_Hammer_Block_Break"
+  ],
+  "Tags": {
+    "Attack": [
+      "Block"
+    ]
+  }
+}

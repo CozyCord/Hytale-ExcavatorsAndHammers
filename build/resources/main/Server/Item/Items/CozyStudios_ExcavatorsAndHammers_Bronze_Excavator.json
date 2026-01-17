@@ -1,0 +1,70 @@
+{
+  "TranslationProperties": {
+    "Name": "Bronze Excavator",
+    "Description": "A bronze excavator that digs in a 3x3 area"
+  },
+  "Parent": "CozyStudios_ExcavatorsAndHammers_Copper_Excavator",
+  "Icon": "Icons/Items/Tools/Excavator/bronze_excavator.png",
+  "Texture": "Items/Tools/Excavator/bronze_excavator.png",
+  "Quality": "Common",
+  "ItemLevel": 15,
+  "Tool": {
+    "Specs": [
+      {
+        "Power": 1,
+        "GatherType": "Soils"
+      },
+      {
+        "Power": 0.05,
+        "GatherType": "SoftBlocks"
+      },
+      {
+        "Power": 0.05,
+        "GatherType": "Woods"
+      },
+      {
+        "Power": 0.05,
+        "GatherType": "Rocks"
+      },
+      {
+        "Power": 0.1,
+        "GatherType": "Benches"
+      }
+    ],
+    "DurabilityLossBlockTypes": [
+      {
+        "BlockSets": [
+          "Soil"
+        ],
+        "DurabilityLossOnHit": 0.25
+      }
+    ]
+  },
+  "MaxDurability": 200,
+  "Recipe": {
+    "TimeSeconds": 2.5,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Bronze",
+        "Quantity": 15
+      },
+      {
+        "ItemId": "Ingredient_Leather_Light",
+        "Quantity": 2
+      },
+      {
+        "ItemId": "Ingredient_Stick",
+        "Quantity": 2
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Workbench",
+        "Type": "Crafting",
+        "Categories": [
+          "Workbench_Tools"
+        ]
+      }
+    ]
+  }
+}

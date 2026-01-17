@@ -1,0 +1,77 @@
+{
+  "TranslationProperties": {
+    "Name": "Adamantite Hammer",
+    "Description": "An adamantite hammer that mines in a 3x3 area - the strongest hammer"
+  },
+  "Parent": "CozyStudios_ExcavatorsAndHammers_Copper_Hammer",
+  "Icon": "Icons/Items/Tools/Hammer/adamantite_hammer.png",
+  "Texture": "Items/Tools/Hammer/adamantite_hammer.png",
+  "Quality": "Rare",
+  "ItemLevel": 50,
+  "Tool": {
+    "Specs": [
+      {
+        "Power": 1,
+        "GatherType": "SoftBlocks"
+      },
+      {
+        "Power": 0.7,
+        "GatherType": "Soils"
+      },
+      {
+        "Power": 0.05,
+        "GatherType": "Woods"
+      },
+      {
+        "Power": 0.7,
+        "GatherType": "Rocks"
+      },
+      {
+        "Power": 0.5,
+        "GatherType": "Benches"
+      },
+      {
+        "Power": 0.3,
+        "GatherType": "VolcanicRocks"
+      }
+    ],
+    "DurabilityLossBlockTypes": [
+      {
+        "BlockSets": [
+          "Stone",
+          "Rock",
+          "Ores",
+          "Soil"
+        ],
+        "DurabilityLossOnHit": 0.25
+      }
+    ]
+  },
+  "MaxDurability": 1000,
+  "Recipe": {
+    "TimeSeconds": 6,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Adamantite",
+        "Quantity": 32
+      },
+      {
+        "ItemId": "Ingredient_Leather_Heavy",
+        "Quantity": 3
+      },
+      {
+        "ItemId": "Ingredient_Fabric_Scrap_Silk",
+        "Quantity": 3
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Workbench",
+        "Type": "Crafting",
+        "Categories": [
+          "Workbench_Tools"
+        ]
+      }
+    ]
+  }
+}

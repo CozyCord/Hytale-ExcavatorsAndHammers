@@ -1,0 +1,71 @@
+{
+  "Type": "Simple",
+  "Effects": {
+    "ItemAnimationId": "Mine"
+  },
+  "RunTime": 0.083,
+  "Next": {
+    "Type": "Parallel",
+    "Interactions": [
+      {
+        "Interactions": [
+          {
+            "Type": "Simple",
+            "RunTime": 0.05,
+            "Next": "EH_Hammer_Block_Break"
+          }
+        ]
+      },
+      {
+        "Interactions": [
+          {
+            "Type": "Selector",
+            "RunTime": 0.083,
+            "Selector": {
+              "Id": "Horizontal",
+              "Direction": "ToLeft",
+              "TestLineOfSight": false,
+              "ExtendTop": 0.5,
+              "ExtendBottom": 0.5,
+              "StartDistance": 0.1,
+              "EndDistance": 2.5,
+              "Length": 30,
+              "RollOffset": 60,
+              "YawStartOffset": -15
+            },
+            "HitEntity": {
+              "Interactions": [
+                {
+                  "Type": "Replace",
+                  "DefaultValue": {
+                    "Interactions": [
+                      "EH_Hammer_Mine_Damage"
+                    ]
+                  },
+                  "Var": "EH_Hammer_Mine_Damage"
+                }
+              ]
+            },
+            "Next": {
+              "Type": "Simple",
+              "RunTime": 0.084
+            }
+          }
+        ]
+      },
+      {
+        "Interactions": [
+          {
+            "Type": "Replace",
+            "DefaultValue": {
+              "Interactions": [
+                "EH_Hammer_Mine_Effect"
+              ]
+            },
+            "Var": "EH_Hammer_Mine_Effect"
+          }
+        ]
+      }
+    ]
+  }
+}

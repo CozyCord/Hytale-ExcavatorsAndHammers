@@ -1,0 +1,40 @@
+package net.cozystudios.excavatorsandhammers;
+
+import com.hypixel.hytale.server.core.plugin.JavaPlugin;
+import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
+import com.hypixel.hytale.logger.HytaleLogger;
+
+import javax.annotation.Nonnull;
+
+public class ExcavatorsAndHammers extends JavaPlugin {
+
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
+
+    public ExcavatorsAndHammers(@Nonnull JavaPluginInit init) {
+        super(init);
+    }
+
+    @Override
+    public void setup() {
+        LOGGER.atInfo().log("ExcavatorsAndHammers is setting up...");
+
+        try {
+            AreaMiningSystem areaMiningSystem = new AreaMiningSystem();
+            this.getEntityStoreRegistry().registerSystem(areaMiningSystem);
+            LOGGER.atInfo().log("Registered AreaMiningSystem successfully");
+        } catch (Exception e) {
+            LOGGER.atSevere().withCause(e).log("Failed to register AreaMiningSystem");
+        }
+    }
+
+    @Override
+    public void start() {
+        LOGGER.atInfo().log("ExcavatorsAndHammers has started!");
+        LOGGER.atInfo().log("Hammer and Excavator tools now mine in a 3x3 area!");
+    }
+
+    @Override
+    public void shutdown() {
+        LOGGER.atInfo().log("ExcavatorsAndHammers has been disabled!");
+    }
+}

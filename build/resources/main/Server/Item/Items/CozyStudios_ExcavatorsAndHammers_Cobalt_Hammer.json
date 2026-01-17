@@ -1,0 +1,77 @@
+{
+  "TranslationProperties": {
+    "Name": "Cobalt Hammer",
+    "Description": "A cobalt hammer that mines in a 3x3 area"
+  },
+  "Parent": "CozyStudios_ExcavatorsAndHammers_Copper_Hammer",
+  "Icon": "Icons/Items/Tools/Hammer/cobalt_hammer.png",
+  "Texture": "Items/Tools/Hammer/cobalt_hammer.png",
+  "Quality": "Rare",
+  "ItemLevel": 30,
+  "Tool": {
+    "Specs": [
+      {
+        "Power": 1,
+        "GatherType": "SoftBlocks"
+      },
+      {
+        "Power": 0.5,
+        "GatherType": "Soils"
+      },
+      {
+        "Power": 0.05,
+        "GatherType": "Woods"
+      },
+      {
+        "Power": 0.5,
+        "GatherType": "Rocks"
+      },
+      {
+        "Power": 0.5,
+        "GatherType": "Benches"
+      },
+      {
+        "Power": 0.2,
+        "GatherType": "VolcanicRocks"
+      }
+    ],
+    "DurabilityLossBlockTypes": [
+      {
+        "BlockSets": [
+          "Stone",
+          "Rock",
+          "Ores",
+          "Soil"
+        ],
+        "DurabilityLossOnHit": 0.25
+      }
+    ]
+  },
+  "MaxDurability": 500,
+  "Recipe": {
+    "TimeSeconds": 4,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Cobalt",
+        "Quantity": 25
+      },
+      {
+        "ItemId": "Ingredient_Leather_Heavy",
+        "Quantity": 2
+      },
+      {
+        "ItemId": "Ingredient_Fabric_Scrap_Wool",
+        "Quantity": 2
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Workbench",
+        "Type": "Crafting",
+        "Categories": [
+          "Workbench_Tools"
+        ]
+      }
+    ]
+  }
+}
