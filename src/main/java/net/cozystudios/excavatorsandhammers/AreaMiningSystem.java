@@ -3,6 +3,7 @@ package net.cozystudios.excavatorsandhammers;
 import com.hypixel.hytale.component.AddReason;
 import com.hypixel.hytale.component.ArchetypeChunk;
 import com.hypixel.hytale.component.CommandBuffer;
+import com.hypixel.hytale.component.ComponentAccessor;
 import com.hypixel.hytale.component.Holder;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
@@ -27,6 +28,7 @@ import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockGathering
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockBreakingDropType;
 import com.hypixel.hytale.server.core.modules.item.ItemModule;
 import com.hypixel.hytale.server.core.modules.entity.item.ItemComponent;
+import com.hypixel.hytale.server.core.modules.entity.component.ModelComponent;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.math.vector.Vector3i;
 import com.hypixel.hytale.math.util.ChunkUtil;
@@ -141,7 +143,7 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
         int centerY = targetPos.getY();
         int centerZ = targetPos.getZ();
 
-        MiningPlane plane = getMiningPlaneFromPlayer(player, targetPos);
+        MiningPlane plane = getMiningPlaneFromPlayer(ref, entityStore, player, targetPos);
 
         long posKey = packPosition(centerX, centerY, centerZ);
         if (!PROCESSING_BLOCKS.add(posKey)) {
@@ -155,7 +157,7 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
         }
     }
 
-    private MiningPlane getMiningPlaneFromPlayer(Player player, Vector3i targetBlock) {
+    private MiningPlane getMiningPlaneFromPlayer(Ref<EntityStore> ref, ComponentAccessor<EntityStore> componentAccessor, Player player, Vector3i targetBlock) {
         try {
             TransformComponent transform = player.getTransformComponent();
             if (transform == null) {
@@ -167,12 +169,20 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
                 return MiningPlane.XY;
             }
 
+
+            // I hope this isn't as slow but if they change things up on us it's more resiliant
+            float eyeHeight = 0.0F;
+            ModelComponent modelComponent = componentAccessor.getComponent(ref, ModelComponent.getComponentType());
+            if (modelComponent != null) {
+                eyeHeight = modelComponent.getModel().getEyeHeight(ref, componentAccessor);
+            }
+
             double blockCenterX = targetBlock.getX() + 0.5;
             double blockCenterY = targetBlock.getY() + 0.5;
             double blockCenterZ = targetBlock.getZ() + 0.5;
 
             double playerEyeX = playerPos.getX();
-            double playerEyeY = playerPos.getY() + 1.6;
+            double playerEyeY = playerPos.getY() + eyeHeight;
             double playerEyeZ = playerPos.getZ();
 
             double dx = blockCenterX - playerEyeX;
