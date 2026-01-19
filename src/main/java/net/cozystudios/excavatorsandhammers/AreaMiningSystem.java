@@ -132,20 +132,9 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
         }
 
         ItemToolSpec itemToolSpec = BlockHarvestUtils.getSpecPowerDamageBlock(heldItem, event.getBlockType(), itemTool);
-        float specPower = itemToolSpec != null ? itemToolSpec.getPower() : 0.0F;
-        boolean canApplyItemStackPenalties = player != null && player.canApplyItemStackPenalties(ref, entityStore);
-        if (specPower != 0.0F && heldItem != null && itemTool != null && itemStack.isBroken() && canApplyItemStackPenalties) {
+        boolean canApplyItemStackPenalties = player.canApplyItemStackPenalties(ref, entityStore);
+        if (itemStack.isBroken() && canApplyItemStackPenalties) {
            return;
-        }
-
-        float damageScale = 0.0F;
-        float currentHealth = event.getCurrentDamage();
-        float damageDone = event.getDamage();
-        if(specPower != 0.0F) {
-            damageScale = damageDone/specPower;
-            // damageDone = (1.0F | specPower) * damageScale
-        } else {
-            damageScale = damageDone/1.0F;
         }
 
         int centerX = targetPos.getX();
@@ -160,7 +149,7 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
         }
 
         try {
-            breakSurroundingBlocks(world, centerX, centerY, centerZ, plane, isHammer, damageScale, commandBuffer, itemTool);
+            breakSurroundingBlocks(world, centerX, centerY, centerZ, plane, isHammer, commandBuffer, itemTool);
         } finally {
             PROCESSING_BLOCKS.remove(posKey);
         }
@@ -208,7 +197,7 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
         return MiningPlane.XY;
     }
 
-    private void breakSurroundingBlocks(World world, int centerX, int centerY, int centerZ, MiningPlane plane, boolean isHammer, float damageScale, CommandBuffer<EntityStore> commandBuffer, ItemTool itemTool) {
+    private void breakSurroundingBlocks(World world, int centerX, int centerY, int centerZ, MiningPlane plane, boolean isHammer, CommandBuffer<EntityStore> commandBuffer, ItemTool itemTool) {
         for (int d1 = -1; d1 <= 1; d1++) {
             for (int d2 = -1; d2 <= 1; d2++) {
                 if (d1 == 0 && d2 == 0) {
@@ -242,7 +231,7 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
                 }
 
                 try {
-                    damangeBlockWithDrops(world, x, y, z, centerX, centerY, centerZ, isHammer, damageScale, commandBuffer, itemTool);
+                    damangeBlockWithDrops(world, x, y, z, centerX, centerY, centerZ, isHammer, commandBuffer, itemTool);
                 } finally {
                     PROCESSING_BLOCKS.remove(posKey);
                 }
@@ -250,7 +239,7 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
         }
     }
 
-    private void damangeBlockWithDrops(World world, int x, int y, int z, int dropX, int dropY, int dropZ, boolean isHammer, float damageScale, CommandBuffer<EntityStore> commandBuffer, ItemTool itemTool) {
+    private void damangeBlockWithDrops(World world, int x, int y, int z, int dropX, int dropY, int dropZ, boolean isHammer, CommandBuffer<EntityStore> commandBuffer, ItemTool itemTool) {
         Vector3i pos = new Vector3i(x, y, z);
         BlockType blockType = world.getBlockType(pos);
         if (blockType == null) {
@@ -269,10 +258,8 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
         Store<ChunkStore> chunkStore = world.getChunkStore().getStore();
         long chunkIndex = ChunkUtil.indexChunkFromBlock(x, z);
         Ref<ChunkStore> chunkReference = chunkStore.getExternalData().getChunkReference(chunkIndex);
-
-        boolean result = !BlockHarvestUtils.performBlockDamage(pos, (ItemStack)null, itemTool, damageScale, 0, chunkReference, commandBuffer, chunkStore);
-
-        //boolean result = world.breakBlock(x, y, z, 256);
+        
+        boolean result = BlockHarvestUtils.performBlockDamage(pos, (ItemStack)null, itemTool, 1.0F, 0, chunkReference, commandBuffer, chunkStore);
 
         if (!result) {
             return;
