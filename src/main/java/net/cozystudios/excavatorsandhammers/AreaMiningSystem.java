@@ -8,19 +8,28 @@ import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.EntityEventSystem;
+import com.hypixel.hytale.server.core.modules.interaction.BlockHarvestUtils;
 import com.hypixel.hytale.server.core.event.events.ecs.BreakBlockEvent;
+import com.hypixel.hytale.server.core.event.events.ecs.DamageBlockEvent;
+import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
+import com.hypixel.hytale.server.core.asset.type.gameplay.BrokenPenalties;
+import com.hypixel.hytale.server.core.asset.type.gameplay.GameplayConfig;
+import com.hypixel.hytale.server.core.asset.type.item.config.Item;
+import com.hypixel.hytale.server.core.asset.type.item.config.ItemTool;
+import com.hypixel.hytale.server.core.asset.type.item.config.ItemToolSpec;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockGathering;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockBreakingDropType;
 import com.hypixel.hytale.server.core.modules.item.ItemModule;
 import com.hypixel.hytale.server.core.modules.entity.item.ItemComponent;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.math.vector.Vector3i;
+import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.math.vector.Vector3f;
 import com.hypixel.hytale.logger.HytaleLogger;
@@ -31,7 +40,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class AreaMiningSystem extends EntityEventSystem<EntityStore, BreakBlockEvent> {
+public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlockEvent> {
 
     private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
@@ -64,7 +73,7 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, BreakBlockE
     }
 
     public AreaMiningSystem() {
-        super(BreakBlockEvent.class);
+        super(DamageBlockEvent.class);
     }
 
     @Override
@@ -74,11 +83,11 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, BreakBlockE
 
     @Override
     public void handle(int entityIndex, ArchetypeChunk<EntityStore> chunk,
-                       Store<EntityStore> store, CommandBuffer<EntityStore> commandBuffer,
-                       BreakBlockEvent event) {
+                       Store<EntityStore> entityStore, CommandBuffer<EntityStore> commandBuffer,
+                       DamageBlockEvent event) {
 
         Ref ref = chunk.getReferenceTo(entityIndex);
-        Player player = store.getComponent(ref, Player.getComponentType());
+        Player player = entityStore.getComponent(ref, Player.getComponentType());
 
         if (player == null) {
             return;
@@ -88,18 +97,29 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, BreakBlockE
         if (world == null) {
             return;
         }
+        GameplayConfig gameplayConfig = world.getGameplayConfig();
 
-        ItemStack item = event.getItemInHand();
-        if (item == null) {
+        ItemStack itemStack = event.getItemInHand();
+        if (itemStack == null) {
             return;
         }
 
-        String itemId = item.getItemId();
+        Item heldItem = itemStack.getItem();
+        if (heldItem == null) {
+            return;
+        }
+        
+        String itemId = itemStack.getItemId();
         if (itemId == null) {
             return;
         }
 
-        boolean isHammer = HAMMER_IDS.contains(itemId);
+        ItemTool itemTool = heldItem.getTool();
+        if (itemTool == null) {
+            return;
+        }
+
+        boolean isHammer = HAMMER_IDS.contains(itemId); // [TODO] - would be nice to process this
         boolean isExcavator = EXCAVATOR_IDS.contains(itemId);
 
         if (!isHammer && !isExcavator) {
@@ -109,6 +129,23 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, BreakBlockE
         Vector3i targetPos = event.getTargetBlock();
         if (targetPos == null) {
             return;
+        }
+
+        ItemToolSpec itemToolSpec = BlockHarvestUtils.getSpecPowerDamageBlock(heldItem, event.getBlockType(), itemTool);
+        float specPower = itemToolSpec != null ? itemToolSpec.getPower() : 0.0F;
+        boolean canApplyItemStackPenalties = player != null && player.canApplyItemStackPenalties(ref, entityStore);
+        if (specPower != 0.0F && heldItem != null && itemTool != null && itemStack.isBroken() && canApplyItemStackPenalties) {
+           return;
+        }
+
+        float damageScale = 0.0F;
+        float currentHealth = event.getCurrentDamage();
+        float damageDone = event.getDamage();
+        if(specPower != 0.0F) {
+            damageScale = damageDone/specPower;
+            // damageDone = (1.0F | specPower) * damageScale
+        } else {
+            damageScale = damageDone/1.0F;
         }
 
         int centerX = targetPos.getX();
@@ -123,7 +160,7 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, BreakBlockE
         }
 
         try {
-            breakSurroundingBlocks(world, centerX, centerY, centerZ, plane, isHammer);
+            breakSurroundingBlocks(world, centerX, centerY, centerZ, plane, isHammer, damageScale, commandBuffer, itemTool);
         } finally {
             PROCESSING_BLOCKS.remove(posKey);
         }
@@ -171,7 +208,7 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, BreakBlockE
         return MiningPlane.XY;
     }
 
-    private void breakSurroundingBlocks(World world, int centerX, int centerY, int centerZ, MiningPlane plane, boolean isHammer) {
+    private void breakSurroundingBlocks(World world, int centerX, int centerY, int centerZ, MiningPlane plane, boolean isHammer, float damageScale, CommandBuffer<EntityStore> commandBuffer, ItemTool itemTool) {
         for (int d1 = -1; d1 <= 1; d1++) {
             for (int d2 = -1; d2 <= 1; d2++) {
                 if (d1 == 0 && d2 == 0) {
@@ -205,7 +242,7 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, BreakBlockE
                 }
 
                 try {
-                    breakBlockWithDrops(world, x, y, z, centerX, centerY, centerZ, isHammer);
+                    damangeBlockWithDrops(world, x, y, z, centerX, centerY, centerZ, isHammer, damageScale, commandBuffer, itemTool);
                 } finally {
                     PROCESSING_BLOCKS.remove(posKey);
                 }
@@ -213,7 +250,7 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, BreakBlockE
         }
     }
 
-    private void breakBlockWithDrops(World world, int x, int y, int z, int dropX, int dropY, int dropZ, boolean isHammer) {
+    private void damangeBlockWithDrops(World world, int x, int y, int z, int dropX, int dropY, int dropZ, boolean isHammer, float damageScale, CommandBuffer<EntityStore> commandBuffer, ItemTool itemTool) {
         Vector3i pos = new Vector3i(x, y, z);
         BlockType blockType = world.getBlockType(pos);
         if (blockType == null) {
@@ -229,8 +266,13 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, BreakBlockE
         if (!isBlockMineableByTool(blockType, isHammer)) {
             return;
         }
+        Store<ChunkStore> chunkStore = world.getChunkStore().getStore();
+        long chunkIndex = ChunkUtil.indexChunkFromBlock(x, z);
+        Ref<ChunkStore> chunkReference = chunkStore.getExternalData().getChunkReference(chunkIndex);
 
-        boolean result = world.breakBlock(x, y, z, 256);
+        boolean result = !BlockHarvestUtils.performBlockDamage(pos, (ItemStack)null, itemTool, damageScale, 0, chunkReference, commandBuffer, chunkStore);
+
+        //boolean result = world.breakBlock(x, y, z, 256);
 
         if (!result) {
             return;

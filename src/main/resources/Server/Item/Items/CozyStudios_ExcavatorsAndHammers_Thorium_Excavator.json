@@ -12,11 +12,11 @@
     "Specs": [
       {
         "Power": 1,
-        "GatherType": "Soils"
+        "GatherType": "SoftBlocks"
       },
       {
-        "Power": 0.05,
-        "GatherType": "SoftBlocks"
+        "Power": 0.5,
+        "GatherType": "Soils"
       },
       {
         "Power": 0.05,
@@ -27,7 +27,7 @@
         "GatherType": "Rocks"
       },
       {
-        "Power": 0.1,
+        "Power": 0.5,
         "GatherType": "Benches"
       }
     ],

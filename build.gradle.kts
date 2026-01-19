@@ -6,7 +6,7 @@ group = "net.cozystudios"
 version = "1.0.0"
 
 // Path to your Hytale installation
-val hytaleServerJar = "C:/Users/dingd/AppData/Roaming/Hytale/install/release/package/game/latest/Server/HytaleServer.jar"
+val hytaleServerJar = "C:/Users/danie/Downloads/Hytale Server/2026.01.17-4b0f30090/Server/HytaleServer.jar"
 
 repositories {
     mavenCentral()
@@ -14,7 +14,7 @@ repositories {
 
 dependencies {
     // HytaleServer.jar from local Hytale installation (includes guava, gson, etc.)
-    compileOnly(files(hytaleServerJar))
+    implementation (files(hytaleServerJar))
 }
 
 java {
