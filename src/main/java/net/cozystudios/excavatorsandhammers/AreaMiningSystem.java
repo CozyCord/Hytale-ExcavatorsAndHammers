@@ -236,13 +236,13 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
         }
 
         if(directionZ > 0) {
-            double c = max.z - startLocation.getZ();
+            double c = min.z - startLocation.getZ();
             double tempConstant = c / directionZ;
             if(tempConstant > 0 && tempConstant < constant) {
                 double yAtCollide = tempConstant * directionY + startLocation.getY();
                 double xAtCollide = tempConstant * directionX + startLocation.getX();
                 if (between(yAtCollide, min.y, max.y, 0)
-                        && between(xAtCollide, min.z, max.x, 0)) {
+                        && between(xAtCollide, min.x, max.x, 0)) {
                     blockFace = BlockFace.NORTH;
                 }
             }
@@ -268,10 +268,19 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
         return num + EOF >= b && num - EOF <= a;
     }
 
-    private Box getAxisAllignedBoundBox(Vector3i targetBlock) {
+    private Box getAxisAllignedBoundBox(World world, Vector3i targetBlock) {
+        int x = targetBlock.getX();
+        int z = targetBlock.getZ();
+
+        WorldChunk worldChunk = world.getChunk(ChunkUtil.indexChunkFromBlock(x, z));
+        Ref<ChunkStore> blockRef = worldChunk.getBlockComponentEntity(x, targetBlock.getY(), z);
+        Store<ChunkStore> chunkStore = world.getChunkStore().getStore();
+        
         BlockType blockType = world.getBlockType(targetBlock);
         BlockBoundingBoxes hitbox = BlockBoundingBoxes.getAssetMap().getAsset(blockType.getHitboxTypeIndex());
         Box boundingBox = hitbox.get(0).getBoundingBox(); // 0 = Don't plan to break rotated blocks
+
+        return boundingBox.getBox(targetBlock.toVector3d());
     }
 
     private MiningPlane getMiningPlaneFromPlayer(Ref<EntityStore> ref, ComponentAccessor<EntityStore> componentAccessor, Player player, Vector3i targetBlock) {
@@ -297,18 +306,6 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
             Vector3f HeadRotation = headRotationComponent.getRotation();
             Vector3d direction = headRotationComponent.getDirection();
 
-            int x = targetBlock.getX();
-            int z = targetBlock.getZ();
-
-            WorldChunk worldChunk = world.getChunk(ChunkUtil.indexChunkFromBlock(x, z));
-            Ref<ChunkStore> blockRef = worldChunk.getBlockComponentEntity(x, targetBlock.getY(), z);
-            Store<ChunkStore> chunkStore = world.getChunkStore().getStore();
-
-            BlockType blockType = world.getBlockType(targetBlock);
-
-            BlockBoundingBoxes hitbox = BlockBoundingBoxes.getAssetMap().getAsset(blockType.getHitboxTypeIndex());
-            Box boundingBox = hitbox.get(0).getBoundingBox(); //Don't plan to break rotated blocks
-
             // I hope this isn't as slow but if they change things up on us it's more resiliant
             float eyeHeight = 0.0F;
             ModelComponent modelComponent = componentAccessor.getComponent(ref, ModelComponent.getComponentType());
@@ -316,8 +313,7 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
                 eyeHeight = modelComponent.getModel().getEyeHeight(ref, componentAccessor);
             }
 
-            BlockFace face = blockFaceCollide(playerPos.add(new Vector3d(0,eyeHeight,0)),direction,boundingBox.getBox(targetBlock.toVector3d()));
-            LOGGER.atInfo().log("Face:"+face.toString());
+            BlockFace face = blockFaceCollide(playerPos.add(new Vector3d(0,eyeHeight,0)),direction,getAxisAllignedBoundBox(world, targetBlock));
 
             switch(face) {
                 case BlockFace.NORTH:
