@@ -109,7 +109,7 @@
       0
     ]
   },
-  "MaxDurability": 180,
+  "MaxDurability": 120,
   "Tags": {
     "Type": [
       "Tool"

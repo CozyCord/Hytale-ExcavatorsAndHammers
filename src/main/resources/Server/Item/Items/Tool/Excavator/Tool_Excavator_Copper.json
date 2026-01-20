@@ -42,7 +42,7 @@
       }
     ]
   },
-  "MaxDurability": 180,
+  "MaxDurability": 120,
   "Recipe": {
     "TimeSeconds": 2,
     "Input": [
@@ -51,7 +51,7 @@
         "Quantity": 12
       },
       {
-        "ItemId": "Ingredient_Leather_Light",
+        "ItemId": "Ingredient_Fibre",
         "Quantity": 2
       },
       {
