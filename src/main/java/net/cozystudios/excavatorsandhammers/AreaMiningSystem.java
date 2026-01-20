@@ -17,30 +17,41 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.universe.world.World;
+import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
+import com.hypixel.hytale.server.core.asset.type.blocktype.config.MergedBlockFaces;
 import com.hypixel.hytale.server.core.asset.type.gameplay.BrokenPenalties;
 import com.hypixel.hytale.server.core.asset.type.gameplay.GameplayConfig;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
 import com.hypixel.hytale.server.core.asset.type.item.config.ItemTool;
 import com.hypixel.hytale.server.core.asset.type.item.config.ItemToolSpec;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockGathering;
+import com.hypixel.hytale.server.core.asset.type.blockhitbox.BlockBoundingBoxes;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockBreakingDropType;
+import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockFace;
 import com.hypixel.hytale.server.core.modules.item.ItemModule;
 import com.hypixel.hytale.server.core.modules.entity.item.ItemComponent;
+import com.hypixel.hytale.server.core.modules.entity.component.BoundingBox;
+import com.hypixel.hytale.server.core.modules.entity.component.HeadRotation;
 import com.hypixel.hytale.server.core.modules.entity.component.ModelComponent;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.math.vector.Vector3i;
+import com.hypixel.hytale.math.shape.Box;
 import com.hypixel.hytale.math.util.ChunkUtil;
+import com.hypixel.hytale.math.vector.Transform;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.math.vector.Vector3f;
 import com.hypixel.hytale.logger.HytaleLogger;
 
 import java.util.Set;
+import java.util.Vector;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
+
+import javax.annotation.Nonnull;
 
 public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlockEvent> {
 
@@ -157,6 +168,112 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
         }
     }
 
+    public static @Nonnull BlockFace blockFaceCollide(Vector3d startLocation, Vector3d direction, Box objectBoundry){
+
+        double constant = Double.MAX_VALUE;
+
+        BlockFace blockFace = BlockFace.DOWN;
+
+        double directionX = direction.getX();
+        double directionY = direction.getY();
+        double directionZ = direction.getZ();
+        Vector3d min = objectBoundry.min;
+        Vector3d max = objectBoundry.max;
+
+
+        if(directionY > 0){
+            double b = min.y - startLocation.getY();
+            double tempConstant = b / directionY;
+            if(tempConstant > 0 && tempConstant < constant){
+                double xAtCollide = tempConstant * directionX + startLocation.getX();
+                double zAtCollide = tempConstant * directionZ + startLocation.getZ();
+                if (between(xAtCollide, min.x, max.x, 0)
+                        && between(zAtCollide, min.z, max.z, 0)) {
+                    constant = tempConstant;
+                    blockFace = BlockFace.DOWN;
+                }
+            }
+        }
+        else {
+            double e = max.y - startLocation.getY();
+            double tempConstant = e / directionY;
+            if (tempConstant > 0 && tempConstant < constant) {
+                double xAtCollide = tempConstant * directionX + startLocation.getX();
+                double zAtCollide = tempConstant * directionZ + startLocation.getZ();
+                if (between(xAtCollide, min.x, max.x, 0)
+                        && between(zAtCollide, min.z, max.z, 0)) {
+                    constant = tempConstant;
+                    blockFace = BlockFace.UP;
+                }
+            }
+        }
+
+        if(directionX < 0) {
+            double d = max.x - startLocation.getX();
+            double tempConstant = d / directionX;
+            if (tempConstant > 0 && tempConstant < constant) {
+                double yAtCollide = tempConstant * directionY + startLocation.getY();
+                double zAtCollide = tempConstant * directionZ + startLocation.getZ();
+                if (between(yAtCollide, min.y, max.y, 0)
+                        && between(zAtCollide, min.z, max.z, 0)) {
+                    constant = tempConstant;
+                    blockFace = BlockFace.EAST;
+                }
+            }
+        }
+        else {
+            double a = min.x - startLocation.getX();
+            double tempConstant = a / directionX;
+            if (tempConstant > 0 && tempConstant < constant) {
+                double yAtCollide = tempConstant * directionY + startLocation.getY();
+                double zAtCollide = tempConstant * directionZ + startLocation.getZ();
+                if (between(yAtCollide, min.y, max.y, 0)
+                        && between(zAtCollide, min.z, max.z, 0)) {
+                    constant = tempConstant;
+                    blockFace = BlockFace.WEST;
+                }
+            }
+        }
+
+        if(directionZ > 0) {
+            double c = max.z - startLocation.getZ();
+            double tempConstant = c / directionZ;
+            if(tempConstant > 0 && tempConstant < constant) {
+                double yAtCollide = tempConstant * directionY + startLocation.getY();
+                double xAtCollide = tempConstant * directionX + startLocation.getX();
+                if (between(yAtCollide, min.y, max.y, 0)
+                        && between(xAtCollide, min.z, max.x, 0)) {
+                    blockFace = BlockFace.NORTH;
+                }
+            }
+        }
+        else {
+            double f = max.z - startLocation.getZ();
+            double tempConstant = f / directionZ;
+            if(tempConstant < constant) {
+                double yAtCollide = tempConstant * directionY + startLocation.getY();
+                double xAtCollide = tempConstant * directionX + startLocation.getX();
+                if (between(yAtCollide, min.y, max.y, 0)
+                        && between(xAtCollide, min.x, max.x, 0)) {
+                    blockFace = BlockFace.SOUTH;
+                }
+            }
+        }
+        return blockFace;
+    }
+
+    public static boolean between(double num, double a, double b, double EOF) {
+        if (a <= b)
+            return num + EOF >= a && num - EOF <= b;
+        return num + EOF >= b && num - EOF <= a;
+    }
+
+    private Box getAxisAllignedBoundBox(Vector3i targetBlock) {
+        BlockType blockType = world.getBlockType(targetBlock);
+        BlockBoundingBoxes hitbox = BlockBoundingBoxes.getAssetMap().getAsset(blockType.getHitboxTypeIndex());
+        Box boundingBox = hitbox.get(0).getBoundingBox(); // 0 = Don't plan to break rotated blocks
+    }
+
     private MiningPlane getMiningPlaneFromPlayer(Ref<EntityStore> ref, ComponentAccessor<EntityStore> componentAccessor, Player player, Vector3i targetBlock) {
         try {
             TransformComponent transform = player.getTransformComponent();
@@ -169,6 +286,28 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
                 return MiningPlane.XY;
             }
 
+            World world = player.getWorld();
+            if (world == null) {
+                return MiningPlane.XY;
+            }
+            
+            HeadRotation headRotationComponent = componentAccessor.getComponent(ref, HeadRotation.getComponentType());
+            assert headRotationComponent != null;
+
+            Vector3f HeadRotation = headRotationComponent.getRotation();
+            Vector3d direction = headRotationComponent.getDirection();
+
+            int x = targetBlock.getX();
+            int z = targetBlock.getZ();
+
+            WorldChunk worldChunk = world.getChunk(ChunkUtil.indexChunkFromBlock(x, z));
+            Ref<ChunkStore> blockRef = worldChunk.getBlockComponentEntity(x, targetBlock.getY(), z);
+            Store<ChunkStore> chunkStore = world.getChunkStore().getStore();
+
+            BlockType blockType = world.getBlockType(targetBlock);
+
+            BlockBoundingBoxes hitbox = BlockBoundingBoxes.getAssetMap().getAsset(blockType.getHitboxTypeIndex());
+            Box boundingBox = hitbox.get(0).getBoundingBox(); //Don't plan to break rotated blocks
 
             // I hope this isn't as slow but if they change things up on us it's more resiliant
             float eyeHeight = 0.0F;
@@ -177,28 +316,19 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
                 eyeHeight = modelComponent.getModel().getEyeHeight(ref, componentAccessor);
             }
 
-            double blockCenterX = targetBlock.getX() + 0.5;
-            double blockCenterY = targetBlock.getY() + 0.5;
-            double blockCenterZ = targetBlock.getZ() + 0.5;
+            BlockFace face = blockFaceCollide(playerPos.add(new Vector3d(0,eyeHeight,0)),direction,boundingBox.getBox(targetBlock.toVector3d()));
+            LOGGER.atInfo().log("Face:"+face.toString());
 
-            double playerEyeX = playerPos.getX();
-            double playerEyeY = playerPos.getY() + eyeHeight;
-            double playerEyeZ = playerPos.getZ();
-
-            double dx = blockCenterX - playerEyeX;
-            double dy = blockCenterY - playerEyeY;
-            double dz = blockCenterZ - playerEyeZ;
-
-            double absDx = Math.abs(dx);
-            double absDy = Math.abs(dy);
-            double absDz = Math.abs(dz);
-
-            if (absDy > absDx && absDy > absDz) {
-                return MiningPlane.XZ;
-            } else if (absDz > absDx) {
-                return MiningPlane.XY;
-            } else {
-                return MiningPlane.ZY;
+            switch(face) {
+                case BlockFace.NORTH:
+                case BlockFace.SOUTH:
+                    return MiningPlane.XY;
+                case BlockFace.EAST:
+                case BlockFace.WEST:
+                    return MiningPlane.ZY;
+                case BlockFace.UP:
+                case BlockFace.DOWN:
+                    return MiningPlane.XZ;
             }
         } catch (Exception e) {
             LOGGER.atWarning().withCause(e).log("Error calculating mining plane");
