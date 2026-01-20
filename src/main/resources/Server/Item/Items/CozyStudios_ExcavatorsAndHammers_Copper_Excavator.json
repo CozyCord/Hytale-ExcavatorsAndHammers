@@ -4,6 +4,7 @@
     "Description": "A copper excavator that digs in a 3x3 area"
   },
   "Parent": "CozyStudios_ExcavatorsAndHammers_Crude_Excavator",
+  "Model": "Items/Tools/Excavator/excavator.blockymodel",
   "Icon": "Icons/Items/Tools/Excavator/copper_excavator.png",
   "Model": "Items/Tools/Excavator/excavator.blockymodel",
   "Texture": "Items/Tools/Excavator/copper_excavator.png",

@@ -4,6 +4,7 @@
     "Description": "An adamantite excavator that digs in a 3x3 area - epic power"
   },
   "Parent": "CozyStudios_ExcavatorsAndHammers_Crude_Excavator",
+  "Model": "Items/Tools/Excavator/excavator.blockymodel",
   "Icon": "Icons/Items/Tools/Excavator/adamantite_excavator.png",
   "Texture": "Items/Tools/Excavator/adamantite_excavator.png",
   "Quality": "Rare",
@@ -63,7 +64,8 @@
         "Type": "Crafting",
         "Categories": [
           "Workbench_Tools"
-        ]
+        ],
+        "RequiredTierLevel": 3
       }
     ]
   }

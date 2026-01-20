@@ -4,6 +4,7 @@
     "Description": "An onyxium excavator that digs in a 3x3 area"
   },
   "Parent": "CozyStudios_ExcavatorsAndHammers_Crude_Excavator",
+  "Model": "Items/Tools/Excavator/excavator.blockymodel",
   "Icon": "Icons/Items/Tools/Excavator/onyxium_excavator.png",
   "Texture": "Items/Tools/Excavator/onyxium_excavator.png",
   "Quality": "Epic",
@@ -63,7 +64,8 @@
         "Type": "Crafting",
         "Categories": [
           "Workbench_Tools"
-        ]
+        ],
+        "RequiredTierLevel": 3
       }
     ]
   }

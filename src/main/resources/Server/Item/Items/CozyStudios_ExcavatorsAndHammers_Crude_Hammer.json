@@ -1,6 +1,6 @@
 {
   "TranslationProperties": {
-    "Name": "Crude Hammer",
+    "Name": "Crude Mining Hammer",
     "Description": "A crude hammer that mines in a 3x3 area"
   },
   "Categories": [
@@ -56,8 +56,7 @@
     "Compatible": true
   },
   "Interactions": {
-    "Primary": "EH_Hammer_Attack",
-    "Secondary": "EH_Hammer_Attack"
+    "Primary": "EH_Hammer_Attack"
   },
   "InteractionVars": {
     "Block_Hit_Camera_Effects": {
@@ -98,6 +97,18 @@
       ]
     }
   },
+  "IconProperties": {
+    "Scale": 0.45,
+    "Translation": [
+      13.8,
+      -14.4
+    ],
+    "Rotation": [
+      45,
+      270,
+      0
+    ]
+  },
   "MaxDurability": 180,
   "Tags": {
     "Type": [
@@ -110,11 +121,11 @@
     "TimeSeconds": 2,
     "Input": [
       {
-        "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 12
+        "ResourceTypeId": "Rubble",
+        "Quantity": 10
       },
       {
-        "ItemId": "Ingredient_Leather_Light",
+        "ItemId": "Ingredient_Fibre",
         "Quantity": 2
       },
       {
@@ -130,18 +141,6 @@
           "Workbench_Tools"
         ]
       }
-    ],
-    "IconProperties": {
-      "Scale": 0.32,
-      "Translation": [
-        22.200001,
-        -21
-      ],
-      "Rotation": [
-        0,
-        180,
-        315
-      ]
-    },
+    ]
   }
 }

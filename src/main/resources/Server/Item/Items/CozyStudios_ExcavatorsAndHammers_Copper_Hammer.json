@@ -1,6 +1,6 @@
 {
   "TranslationProperties": {
-    "Name": "Copper Hammer",
+    "Name": "Copper Mining Hammer",
     "Description": "A copper hammer that mines in a 3x3 area"
   },
   "Parent": "CozyStudios_ExcavatorsAndHammers_Crude_Hammer",

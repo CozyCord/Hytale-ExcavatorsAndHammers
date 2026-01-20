@@ -7,8 +7,8 @@
     "Items.Tools"
   ],
   "Icon": "Icons/Items/Tools/Excavator/copper_excavator.png",
-  "Model": "Items/Tools/Excavator/excavator.blockymodel",
-  "Texture": "Items/Tools/Excavator/copper_excavator.png",
+  "Model": "Items/Tools/Excavator/crude_excavator.blockymodel",
+  "Texture": "Items/Tools/Excavator/crude_excavator.png",
   "Quality": "Common",
   "ItemLevel": 3,
   "MaxStack": 1,
@@ -91,6 +91,18 @@
       ]
     }
   },
+  "IconProperties": {
+    "Scale": 0.32,
+    "Translation": [
+      22.200001,
+      -21
+    ],
+    "Rotation": [
+      0,
+      180,
+      315
+    ]
+  },
   "MaxDurability": 180,
   "Tags": {
     "Type": [
@@ -103,11 +115,11 @@
     "TimeSeconds": 2,
     "Input": [
       {
-        "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 12
+        "ResourceTypeId": "Rubble",
+        "Quantity": 10
       },
       {
-        "ItemId": "Ingredient_Leather_Light",
+        "ItemId": "Ingredient_Fibre",
         "Quantity": 2
       },
       {
@@ -123,18 +135,6 @@
           "Workbench_Tools"
         ]
       }
-    ],
-    "IconProperties": {
-      "Scale": 0.32,
-      "Translation": [
-        22.200001,
-        -21
-      ],
-      "Rotation": [
-        0,
-        180,
-        315
-      ]
-    },
+    ]
   }
 }

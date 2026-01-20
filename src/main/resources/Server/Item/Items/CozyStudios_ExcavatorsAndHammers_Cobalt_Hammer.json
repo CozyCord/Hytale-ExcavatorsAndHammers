@@ -1,6 +1,6 @@
 {
   "TranslationProperties": {
-    "Name": "Cobalt Hammer",
+    "Name": "Cobalt Mining Hammer",
     "Description": "A cobalt hammer that mines in a 3x3 area"
   },
   "Parent": "CozyStudios_ExcavatorsAndHammers_Crude_Hammer",
@@ -71,7 +71,8 @@
         "Type": "Crafting",
         "Categories": [
           "Workbench_Tools"
-        ]
+        ],
+        "RequiredTierLevel": 2
       }
     ]
   }

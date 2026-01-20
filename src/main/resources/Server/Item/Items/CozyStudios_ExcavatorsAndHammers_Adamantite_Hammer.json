@@ -1,6 +1,6 @@
 {
   "TranslationProperties": {
-    "Name": "Adamantite Hammer",
+    "Name": "Adamantite Mining Hammer",
     "Description": "An adamantite hammer that mines in a 3x3 area - the strongest hammer"
   },
   "Parent": "CozyStudios_ExcavatorsAndHammers_Crude_Hammer",
@@ -71,7 +71,8 @@
         "Type": "Crafting",
         "Categories": [
           "Workbench_Tools"
-        ]
+        ],
+        "RequiredTierLevel": 3
       }
     ]
   }
