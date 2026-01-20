@@ -309,7 +309,7 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
             }
             Box objectBoundry = getAxisAllignedBoundBox(world, targetBlock);
 
-            Vector3d eyeHeightV = new Vector3d(playerPos.x,playerPos.y+1.6,playerPos.z);
+            Vector3d eyeHeightV = new Vector3d(playerPos.x,playerPos.y+eyeHeight,playerPos.z);
 
             BlockFace face = blockFaceCollide(eyeHeightV, direction, objectBoundry);
             if (face == null) {
