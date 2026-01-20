@@ -168,6 +168,7 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
         }
     }
 
+    // Adopted from https://stackoverflow.com/questions/31640145/get-the-side-a-player-is-looking-on-the-block-bukkit user andrewgazelka
     public static @Nonnull BlockFace blockFaceCollide(Vector3d startLocation, Vector3d direction, Box objectBoundry){
 
         double constant = Double.MAX_VALUE;
