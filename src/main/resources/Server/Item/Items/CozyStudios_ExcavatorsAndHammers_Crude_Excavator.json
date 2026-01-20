@@ -123,6 +123,18 @@
           "Workbench_Tools"
         ]
       }
-    ]
+    ],
+    "IconProperties": {
+      "Scale": 0.32,
+      "Translation": [
+        22.200001,
+        -21
+      ],
+      "Rotation": [
+        0,
+        180,
+        315
+      ]
+    },
   }
 }
