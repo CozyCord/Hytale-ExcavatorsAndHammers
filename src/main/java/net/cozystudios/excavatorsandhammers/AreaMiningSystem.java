@@ -99,8 +99,8 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
 
     @Override
     public void handle(int entityIndex, ArchetypeChunk<EntityStore> chunk,
-                       Store<EntityStore> entityStore, CommandBuffer<EntityStore> commandBuffer,
-                       DamageBlockEvent event) {
+            Store<EntityStore> entityStore, CommandBuffer<EntityStore> commandBuffer,
+            DamageBlockEvent event) {
 
         Ref ref = chunk.getReferenceTo(entityIndex);
         Player player = entityStore.getComponent(ref, Player.getComponentType());
@@ -124,7 +124,7 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
         if (heldItem == null) {
             return;
         }
-        
+
         String itemId = itemStack.getItemId();
         if (itemId == null) {
             return;
@@ -150,7 +150,7 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
         ItemToolSpec itemToolSpec = BlockHarvestUtils.getSpecPowerDamageBlock(heldItem, event.getBlockType(), itemTool);
         boolean canApplyItemStackPenalties = player.canApplyItemStackPenalties(ref, entityStore);
         if (itemStack.isBroken() && canApplyItemStackPenalties) {
-           return;
+            return;
         }
 
         int centerX = targetPos.getX();
@@ -165,25 +165,26 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
         }
 
         try {
-            breakSurroundingBlocks(world, centerX, centerY, centerZ, plane, isHammer, commandBuffer, itemTool);
+            damageSurroundingBlocks(world, centerX, centerY, centerZ, plane, isHammer, commandBuffer, itemTool);
         } finally {
             PROCESSING_BLOCKS.remove(posKey);
         }
     }
 
-    // Adopted from https://stackoverflow.com/questions/31640145/get-the-side-a-player-is-looking-on-the-block-bukkit user andrewgazelka
-    public static @Nonnull BlockFace blockFaceCollide(Vector3d startLocation, Vector3d direction, Box objectBoundry){
+    // Adopted from
+    // https://stackoverflow.com/questions/31640145/get-the-side-a-player-is-looking-on-the-block-bukkit
+    // user andrewgazelka
+    public static @Nonnull BlockFace blockFaceCollide(Vector3d startLocation, Vector3d direction, Box objectBoundry) {
         double directionX = direction.getX();
         double directionY = direction.getY();
         double directionZ = direction.getZ();
         Vector3d min = objectBoundry.min;
         Vector3d max = objectBoundry.max;
 
-
-        if(directionY > 0){
-            double b = min.y - startLocation.getY();
-            double tempConstant = b / directionY;
-            if(tempConstant > 0){
+        if (directionY > 0) { // Looking +Y
+            double b = min.y - startLocation.getY(); // Bottom of voxel Y - player position
+            double tempConstant = b / directionY; // b / directionY
+            if (tempConstant >= 0) {
                 double xAtCollide = tempConstant * directionX + startLocation.getX();
                 double zAtCollide = tempConstant * directionZ + startLocation.getZ();
                 if (between(xAtCollide, min.x, max.x, 0)
@@ -191,11 +192,10 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
                     return BlockFace.DOWN;
                 }
             }
-        }
-        else {
+        } else { // Looking -Y
             double e = max.y - startLocation.getY();
             double tempConstant = e / directionY;
-            if (tempConstant > 0) {
+            if (tempConstant >= 0) {
                 double xAtCollide = tempConstant * directionX + startLocation.getX();
                 double zAtCollide = tempConstant * directionZ + startLocation.getZ();
                 if (between(xAtCollide, min.x, max.x, 0)
@@ -205,10 +205,10 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
             }
         }
 
-        if(directionX > 0) {
+        if (directionX > 0) {
             double d = min.x - startLocation.getX();
             double tempConstant = d / directionX;
-            if (tempConstant > 0) {
+            if (tempConstant >= 0) {
                 double yAtCollide = tempConstant * directionY + startLocation.getY();
                 double zAtCollide = tempConstant * directionZ + startLocation.getZ();
                 if (between(yAtCollide, min.y, max.y, 0)
@@ -216,11 +216,10 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
                     return BlockFace.EAST;
                 }
             }
-        }
-        else {
+        } else {
             double a = max.x - startLocation.getX();
             double tempConstant = a / directionX;
-            if (tempConstant > 0) {
+            if (tempConstant >= 0) {
                 double yAtCollide = tempConstant * directionY + startLocation.getY();
                 double zAtCollide = tempConstant * directionZ + startLocation.getZ();
                 if (between(yAtCollide, min.y, max.y, 0)
@@ -230,10 +229,10 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
             }
         }
 
-        if(directionZ > 0) {
+        if (directionZ > 0) {
             double c = min.z - startLocation.getZ();
             double tempConstant = c / directionZ;
-            if(tempConstant > 0) {
+            if (tempConstant >= 0) {
                 double yAtCollide = tempConstant * directionY + startLocation.getY();
                 double xAtCollide = tempConstant * directionX + startLocation.getX();
                 if (between(yAtCollide, min.y, max.y, 0)
@@ -241,11 +240,10 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
                     return BlockFace.NORTH;
                 }
             }
-        }
-        else {
+        } else {
             double f = max.z - startLocation.getZ();
             double tempConstant = f / directionZ;
-            if(tempConstant > 0) {
+            if (tempConstant >= 0) {
                 double yAtCollide = tempConstant * directionY + startLocation.getY();
                 double xAtCollide = tempConstant * directionX + startLocation.getX();
                 if (between(yAtCollide, min.y, max.y, 0)
@@ -270,7 +268,7 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
         WorldChunk worldChunk = world.getChunk(ChunkUtil.indexChunkFromBlock(x, z));
         Ref<ChunkStore> blockRef = worldChunk.getBlockComponentEntity(x, targetBlock.getY(), z);
         Store<ChunkStore> chunkStore = world.getChunkStore().getStore();
-        
+
         BlockType blockType = world.getBlockType(targetBlock);
         BlockBoundingBoxes hitbox = BlockBoundingBoxes.getAssetMap().getAsset(blockType.getHitboxTypeIndex());
         Box boundingBox = hitbox.get(0).getBoundingBox(); // 0 = Don't plan to break rotated blocks
@@ -278,7 +276,8 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
         return boundingBox.getBox(targetBlock.toVector3d());
     }
 
-    private MiningPlane getMiningPlaneFromPlayer(Ref<EntityStore> ref, ComponentAccessor<EntityStore> componentAccessor, Player player, Vector3i targetBlock) {
+    private MiningPlane getMiningPlaneFromPlayer(Ref<EntityStore> ref, ComponentAccessor<EntityStore> componentAccessor,
+            Player player, Vector3i targetBlock) {
         try {
             TransformComponent transform = player.getTransformComponent();
             if (transform == null) {
@@ -294,14 +293,15 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
             if (world == null) {
                 return MiningPlane.XY;
             }
-            
+
             HeadRotation headRotationComponent = componentAccessor.getComponent(ref, HeadRotation.getComponentType());
             assert headRotationComponent != null;
 
             Vector3f HeadRotation = headRotationComponent.getRotation();
             Vector3d direction = headRotationComponent.getDirection();
 
-            // I hope this isn't as slow but if they change things up on us it's more resiliant
+            // I hope this isn't as slow but if they change things up on us it's more
+            // resiliant
             float eyeHeight = 0.0F;
             ModelComponent modelComponent = componentAccessor.getComponent(ref, ModelComponent.getComponentType());
             if (modelComponent != null) {
@@ -309,9 +309,14 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
             }
             Box objectBoundry = getAxisAllignedBoundBox(world, targetBlock);
 
-            BlockFace face = blockFaceCollide(playerPos.add(new Vector3d(0,eyeHeight,0)),direction,objectBoundry);
+            Vector3d eyeHeightV = new Vector3d(playerPos.x,playerPos.y+1.6,playerPos.z);
 
-            switch(face) {
+            BlockFace face = blockFaceCollide(eyeHeightV, direction, objectBoundry);
+            if (face == null) {
+                return MiningPlane.XY;
+            }
+
+            switch (face) {
                 case BlockFace.NORTH:
                 case BlockFace.SOUTH:
                     return MiningPlane.XY;
@@ -329,7 +334,8 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
         return MiningPlane.XY;
     }
 
-    private void breakSurroundingBlocks(World world, int centerX, int centerY, int centerZ, MiningPlane plane, boolean isHammer, CommandBuffer<EntityStore> commandBuffer, ItemTool itemTool) {
+    private void damageSurroundingBlocks(World world, int centerX, int centerY, int centerZ, MiningPlane plane,
+            boolean isHammer, CommandBuffer<EntityStore> commandBuffer, ItemTool itemTool) {
         for (int d1 = -1; d1 <= 1; d1++) {
             for (int d2 = -1; d2 <= 1; d2++) {
                 if (d1 == 0 && d2 == 0) {
@@ -371,7 +377,8 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
         }
     }
 
-    private void damangeBlockWithDrops(World world, int x, int y, int z, int dropX, int dropY, int dropZ, boolean isHammer, CommandBuffer<EntityStore> commandBuffer, ItemTool itemTool) {
+    private void damangeBlockWithDrops(World world, int x, int y, int z, int dropX, int dropY, int dropZ,
+            boolean isHammer, CommandBuffer<EntityStore> commandBuffer, ItemTool itemTool) {
         Vector3i pos = new Vector3i(x, y, z);
         BlockType blockType = world.getBlockType(pos);
         if (blockType == null) {
@@ -380,7 +387,7 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
 
         String blockId = blockType.getId();
 
-        if (blockId == null || blockId.equals("Air") || blockId.equals("Empty") || blockId.equals("Bedrock")) {
+        if (blockId == null) {
             return;
         }
 
@@ -392,54 +399,6 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
         Ref<ChunkStore> chunkReference = chunkStore.getExternalData().getChunkReference(chunkIndex);
         
         boolean result = BlockHarvestUtils.performBlockDamage(pos, (ItemStack)null, itemTool, 1.0F, 0, chunkReference, commandBuffer, chunkStore);
-
-        if (!result) {
-            return;
-        }
-
-        try {
-            List<ItemStack> drops = new ArrayList<>();
-            String dropItemId = blockId;
-
-            BlockGathering gathering = blockType.getGathering();
-            if (gathering != null) {
-                BlockBreakingDropType breaking = gathering.getBreaking();
-                if (breaking != null) {
-                    String specificItemId = breaking.getItemId();
-                    if (specificItemId != null) {
-                        dropItemId = specificItemId;
-                    } else {
-                        String dropListId = breaking.getDropListId();
-                        if (dropListId != null) {
-                            ItemModule itemModule = ItemModule.get();
-                            if (itemModule != null && itemModule.isEnabled()) {
-                                int quantity = breaking.getQuantity();
-                                if (quantity <= 0) quantity = 1;
-                                for (int i = 0; i < quantity; i++) {
-                                    List<ItemStack> randomDrops = itemModule.getRandomItemDrops(dropListId);
-                                    if (randomDrops != null) {
-                                        drops.addAll(randomDrops);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (drops.isEmpty() && dropItemId != null) {
-                drops.add(new ItemStack(dropItemId, 1));
-            }
-
-            Vector3i dropPos = new Vector3i(dropX, dropY, dropZ);
-            for (ItemStack drop : drops) {
-                if (drop != null && !drop.isEmpty()) {
-                    dropItemStack(world, drop, dropPos);
-                }
-            }
-        } catch (Exception e) {
-            LOGGER.atWarning().withCause(e).log("Error spawning drops at %d, %d, %d", x, y, z);
-        }
     }
 
     private boolean isBlockMineableByTool(BlockType blockType, boolean isHammer) {
@@ -556,6 +515,6 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
     }
 
     private static long packPosition(int x, int y, int z) {
-        return ((long)(x & 0x3FFFFFF) << 38) | ((long)(z & 0x3FFFFFF) << 12) | (y & 0xFFF);
+        return ((long) (x & 0x3FFFFFF) << 38) | ((long) (z & 0x3FFFFFF) << 12) | (y & 0xFFF);
     }
 }
