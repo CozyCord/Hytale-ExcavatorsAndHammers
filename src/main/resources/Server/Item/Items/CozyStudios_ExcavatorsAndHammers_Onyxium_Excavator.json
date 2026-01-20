@@ -3,7 +3,7 @@
     "Name": "Onyxium Excavator",
     "Description": "An onyxium excavator that digs in a 3x3 area"
   },
-  "Parent": "CozyStudios_ExcavatorsAndHammers_Copper_Excavator",
+  "Parent": "CozyStudios_ExcavatorsAndHammers_Crude_Excavator",
   "Icon": "Icons/Items/Tools/Excavator/onyxium_excavator.png",
   "Texture": "Items/Tools/Excavator/onyxium_excavator.png",
   "Quality": "Epic",

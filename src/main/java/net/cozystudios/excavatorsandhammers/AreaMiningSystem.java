@@ -27,6 +27,7 @@ import com.hypixel.hytale.server.core.asset.type.item.config.Item;
 import com.hypixel.hytale.server.core.asset.type.item.config.ItemTool;
 import com.hypixel.hytale.server.core.asset.type.item.config.ItemToolSpec;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockGathering;
+import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.blockhitbox.BlockBoundingBoxes;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockBreakingDropType;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockFace;
@@ -68,6 +69,7 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
     }
 
     static {
+        HAMMER_IDS.add("CozyStudios_ExcavatorsAndHammers_Crude_Hammer");
         HAMMER_IDS.add("CozyStudios_ExcavatorsAndHammers_Copper_Hammer");
         HAMMER_IDS.add("CozyStudios_ExcavatorsAndHammers_Iron_Hammer");
         HAMMER_IDS.add("CozyStudios_ExcavatorsAndHammers_Cobalt_Hammer");
@@ -76,6 +78,7 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
         HAMMER_IDS.add("CozyStudios_ExcavatorsAndHammers_Onyxium_Hammer");
         HAMMER_IDS.add("CozyStudios_ExcavatorsAndHammers_Adamantite_Hammer");
 
+        EXCAVATOR_IDS.add("CozyStudios_ExcavatorsAndHammers_Crude_Excavator");
         EXCAVATOR_IDS.add("CozyStudios_ExcavatorsAndHammers_Copper_Excavator");
         EXCAVATOR_IDS.add("CozyStudios_ExcavatorsAndHammers_Iron_Excavator");
         EXCAVATOR_IDS.add("CozyStudios_ExcavatorsAndHammers_Cobalt_Excavator");
@@ -170,11 +173,6 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
 
     // Adopted from https://stackoverflow.com/questions/31640145/get-the-side-a-player-is-looking-on-the-block-bukkit user andrewgazelka
     public static @Nonnull BlockFace blockFaceCollide(Vector3d startLocation, Vector3d direction, Box objectBoundry){
-
-        double constant = Double.MAX_VALUE;
-
-        BlockFace blockFace = BlockFace.DOWN;
-
         double directionX = direction.getX();
         double directionY = direction.getY();
         double directionZ = direction.getZ();
@@ -185,53 +183,49 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
         if(directionY > 0){
             double b = min.y - startLocation.getY();
             double tempConstant = b / directionY;
-            if(tempConstant > 0 && tempConstant < constant){
+            if(tempConstant > 0){
                 double xAtCollide = tempConstant * directionX + startLocation.getX();
                 double zAtCollide = tempConstant * directionZ + startLocation.getZ();
                 if (between(xAtCollide, min.x, max.x, 0)
                         && between(zAtCollide, min.z, max.z, 0)) {
-                    constant = tempConstant;
-                    blockFace = BlockFace.DOWN;
+                    return BlockFace.DOWN;
                 }
             }
         }
         else {
             double e = max.y - startLocation.getY();
             double tempConstant = e / directionY;
-            if (tempConstant > 0 && tempConstant < constant) {
+            if (tempConstant > 0) {
                 double xAtCollide = tempConstant * directionX + startLocation.getX();
                 double zAtCollide = tempConstant * directionZ + startLocation.getZ();
                 if (between(xAtCollide, min.x, max.x, 0)
                         && between(zAtCollide, min.z, max.z, 0)) {
-                    constant = tempConstant;
-                    blockFace = BlockFace.UP;
+                    return BlockFace.UP;
                 }
             }
         }
 
-        if(directionX < 0) {
-            double d = max.x - startLocation.getX();
+        if(directionX > 0) {
+            double d = min.x - startLocation.getX();
             double tempConstant = d / directionX;
-            if (tempConstant > 0 && tempConstant < constant) {
+            if (tempConstant > 0) {
                 double yAtCollide = tempConstant * directionY + startLocation.getY();
                 double zAtCollide = tempConstant * directionZ + startLocation.getZ();
                 if (between(yAtCollide, min.y, max.y, 0)
                         && between(zAtCollide, min.z, max.z, 0)) {
-                    constant = tempConstant;
-                    blockFace = BlockFace.EAST;
+                    return BlockFace.EAST;
                 }
             }
         }
         else {
-            double a = min.x - startLocation.getX();
+            double a = max.x - startLocation.getX();
             double tempConstant = a / directionX;
-            if (tempConstant > 0 && tempConstant < constant) {
+            if (tempConstant > 0) {
                 double yAtCollide = tempConstant * directionY + startLocation.getY();
                 double zAtCollide = tempConstant * directionZ + startLocation.getZ();
                 if (between(yAtCollide, min.y, max.y, 0)
                         && between(zAtCollide, min.z, max.z, 0)) {
-                    constant = tempConstant;
-                    blockFace = BlockFace.WEST;
+                    return BlockFace.WEST;
                 }
             }
         }
@@ -239,28 +233,28 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
         if(directionZ > 0) {
             double c = min.z - startLocation.getZ();
             double tempConstant = c / directionZ;
-            if(tempConstant > 0 && tempConstant < constant) {
+            if(tempConstant > 0) {
                 double yAtCollide = tempConstant * directionY + startLocation.getY();
                 double xAtCollide = tempConstant * directionX + startLocation.getX();
                 if (between(yAtCollide, min.y, max.y, 0)
                         && between(xAtCollide, min.x, max.x, 0)) {
-                    blockFace = BlockFace.NORTH;
+                    return BlockFace.NORTH;
                 }
             }
         }
         else {
             double f = max.z - startLocation.getZ();
             double tempConstant = f / directionZ;
-            if(tempConstant < constant) {
+            if(tempConstant > 0) {
                 double yAtCollide = tempConstant * directionY + startLocation.getY();
                 double xAtCollide = tempConstant * directionX + startLocation.getX();
                 if (between(yAtCollide, min.y, max.y, 0)
                         && between(xAtCollide, min.x, max.x, 0)) {
-                    blockFace = BlockFace.SOUTH;
+                    return BlockFace.SOUTH;
                 }
             }
         }
-        return blockFace;
+        return null;
     }
 
     public static boolean between(double num, double a, double b, double EOF) {
@@ -313,8 +307,9 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
             if (modelComponent != null) {
                 eyeHeight = modelComponent.getModel().getEyeHeight(ref, componentAccessor);
             }
+            Box objectBoundry = getAxisAllignedBoundBox(world, targetBlock);
 
-            BlockFace face = blockFaceCollide(playerPos.add(new Vector3d(0,eyeHeight,0)),direction,getAxisAllignedBoundBox(world, targetBlock));
+            BlockFace face = blockFaceCollide(playerPos.add(new Vector3d(0,eyeHeight,0)),direction,objectBoundry);
 
             switch(face) {
                 case BlockFace.NORTH:

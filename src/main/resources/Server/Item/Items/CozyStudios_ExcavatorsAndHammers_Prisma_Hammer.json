@@ -3,7 +3,7 @@
     "Name": "Prisma Hammer",
     "Description": "A prisma hammer that mines in a 3x3 area - legendary power"
   },
-  "Parent": "CozyStudios_ExcavatorsAndHammers_Copper_Hammer",
+  "Parent": "CozyStudios_ExcavatorsAndHammers_Crude_Hammer",
   "Icon": "Icons/Items/Tools/Hammer/prisma_hammer.png",
   "Texture": "Items/Tools/Hammer/prisma_hammer.png",
   "Quality": "Uncommon",

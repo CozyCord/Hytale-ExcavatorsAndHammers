@@ -3,7 +3,7 @@
     "Name": "Prisma Excavator",
     "Description": "A prisma excavator that digs in a 3x3 area - legendary power"
   },
-  "Parent": "CozyStudios_ExcavatorsAndHammers_Copper_Excavator",
+  "Parent": "CozyStudios_ExcavatorsAndHammers_Crude_Excavator",
   "Icon": "Icons/Items/Tools/Excavator/prisma_excavator.png",
   "Texture": "Items/Tools/Excavator/prisma_excavator.png",
   "Quality": "Uncommon",

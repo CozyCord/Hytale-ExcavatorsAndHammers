@@ -3,7 +3,7 @@
     "Name": "Bronze Hammer",
     "Description": "A bronze hammer that mines in a 3x3 area"
   },
-  "Parent": "CozyStudios_ExcavatorsAndHammers_Copper_Hammer",
+  "Parent": "CozyStudios_ExcavatorsAndHammers_Crude_Hammer",
   "Icon": "Icons/Items/Tools/Hammer/bronze_hammer.png",
   "Texture": "Items/Tools/Hammer/bronze_hammer.png",
   "Quality": "Common",

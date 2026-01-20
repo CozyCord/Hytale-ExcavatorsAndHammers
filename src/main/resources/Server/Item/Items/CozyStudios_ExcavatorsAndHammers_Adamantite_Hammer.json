@@ -3,8 +3,9 @@
     "Name": "Adamantite Hammer",
     "Description": "An adamantite hammer that mines in a 3x3 area - the strongest hammer"
   },
-  "Parent": "CozyStudios_ExcavatorsAndHammers_Copper_Hammer",
+  "Parent": "CozyStudios_ExcavatorsAndHammers_Crude_Hammer",
   "Icon": "Icons/Items/Tools/Hammer/adamantite_hammer.png",
+  "Model": "Items/Tools/Hammer/hammer.blockymodel",
   "Texture": "Items/Tools/Hammer/adamantite_hammer.png",
   "Quality": "Rare",
   "ItemLevel": 50,

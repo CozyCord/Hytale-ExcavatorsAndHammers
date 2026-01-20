@@ -3,16 +3,12 @@
     "Name": "Copper Hammer",
     "Description": "A copper hammer that mines in a 3x3 area"
   },
-  "Categories": [
-    "Items.Tools"
-  ],
+  "Parent": "CozyStudios_ExcavatorsAndHammers_Crude_Hammer",
   "Icon": "Icons/Items/Tools/Hammer/copper_hammer.png",
   "Model": "Items/Tools/Hammer/hammer.blockymodel",
   "Texture": "Items/Tools/Hammer/copper_hammer.png",
   "Quality": "Common",
   "ItemLevel": 10,
-  "MaxStack": 1,
-  "PlayerAnimationsId": "Pickaxe",
   "Tool": {
     "Specs": [
       {
@@ -52,62 +48,7 @@
       }
     ]
   },
-  "Utility": {
-    "Compatible": true
-  },
-  "Interactions": {
-    "Primary": "EH_Hammer_Attack",
-    "Secondary": "EH_Hammer_Attack"
-  },
-  "InteractionVars": {
-    "Block_Hit_Camera_Effects": {
-      "Interactions": [
-        {
-          "Type": "Simple",
-          "Effects": {
-            "CameraEffect": "Pickaxe_Mine_Impact"
-          }
-        }
-      ]
-    },
-    "EH_Hammer_Mine_Effect": {
-      "Interactions": [
-        {
-          "Parent": "EH_Hammer_Mine_Effect",
-          "Effects": {
-            "WorldSoundEventId": "SFX_Tool_T1_Swing",
-            "LocalSoundEventId": "SFX_Pickaxe_T1_Swing_Down_Local"
-          }
-        }
-      ]
-    },
-    "EH_Hammer_Mine_Damage": {
-      "Interactions": [
-        {
-          "Parent": "EH_Hammer_Mine_Damage",
-          "DamageCalculator": {
-            "Type": "Absolute",
-            "BaseDamage": {
-              "Physical": 1
-            }
-          },
-          "DamageEffects": {
-            "WorldSoundEventId": "SFX_Light_Melee_T1_Impact"
-          }
-        }
-      ]
-    }
-  },
   "MaxDurability": 180,
-  "Tags": {
-    "Type": [
-      "Tool"
-    ]
-  },
-  "BlockSelectorTool": {
-    "DurabilityLossOnUse": 1.0
-  },
-  "ItemSoundSetId": "ISS_Weapons_Wood",
   "Recipe": {
     "TimeSeconds": 2,
     "Input": [

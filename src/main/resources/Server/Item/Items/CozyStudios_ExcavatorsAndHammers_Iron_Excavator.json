@@ -3,7 +3,7 @@
     "Name": "Iron Excavator",
     "Description": "An iron excavator that digs in a 3x3 area"
   },
-  "Parent": "CozyStudios_ExcavatorsAndHammers_Copper_Excavator",
+  "Parent": "CozyStudios_ExcavatorsAndHammers_Crude_Excavator",
   "Icon": "Icons/Items/Tools/Excavator/iron_excavator.png",
   "Texture": "Items/Tools/Excavator/iron_excavator.png",
   "Quality": "Uncommon",

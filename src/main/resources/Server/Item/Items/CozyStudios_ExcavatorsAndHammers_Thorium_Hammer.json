@@ -3,8 +3,9 @@
     "Name": "Thorium Hammer",
     "Description": "A thorium hammer that mines in a 3x3 area"
   },
-  "Parent": "CozyStudios_ExcavatorsAndHammers_Copper_Hammer",
+  "Parent": "CozyStudios_ExcavatorsAndHammers_Crude_Hammer",
   "Icon": "Icons/Items/Tools/Hammer/thorium_hammer.png",
+  "Model": "Items/Tools/Hammer/hammer.blockymodel",
   "Texture": "Items/Tools/Hammer/thorium_hammer.png",
   "Quality": "Rare",
   "ItemLevel": 35,

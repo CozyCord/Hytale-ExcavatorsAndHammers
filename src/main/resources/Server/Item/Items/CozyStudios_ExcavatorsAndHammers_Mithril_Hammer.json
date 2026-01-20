@@ -3,8 +3,9 @@
     "Name": "Mithril Hammer",
     "Description": "A mithril hammer that mines in a 3x3 area"
   },
-  "Parent": "CozyStudios_ExcavatorsAndHammers_Copper_Hammer",
+  "Parent": "CozyStudios_ExcavatorsAndHammers_Crude_Hammer",
   "Icon": "Icons/Items/Tools/Hammer/mithril_hammer.png",
+  "Model": "Items/Tools/Hammer/hammer.blockymodel",
   "Texture": "Items/Tools/Hammer/mithril_hammer.png",
   "Quality": "Epic",
   "ItemLevel": 40,

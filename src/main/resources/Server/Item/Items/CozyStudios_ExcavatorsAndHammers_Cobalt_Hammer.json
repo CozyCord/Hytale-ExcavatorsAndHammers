@@ -3,8 +3,9 @@
     "Name": "Cobalt Hammer",
     "Description": "A cobalt hammer that mines in a 3x3 area"
   },
-  "Parent": "CozyStudios_ExcavatorsAndHammers_Copper_Hammer",
+  "Parent": "CozyStudios_ExcavatorsAndHammers_Crude_Hammer",
   "Icon": "Icons/Items/Tools/Hammer/cobalt_hammer.png",
+  "Model": "Items/Tools/Hammer/hammer.blockymodel",
   "Texture": "Items/Tools/Hammer/cobalt_hammer.png",
   "Quality": "Rare",
   "ItemLevel": 30,
