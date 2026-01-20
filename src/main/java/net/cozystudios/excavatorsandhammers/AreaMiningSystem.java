@@ -69,23 +69,23 @@ public class AreaMiningSystem extends EntityEventSystem<EntityStore, DamageBlock
     }
 
     static {
-        HAMMER_IDS.add("CozyStudios_ExcavatorsAndHammers_Crude_Hammer");
-        HAMMER_IDS.add("CozyStudios_ExcavatorsAndHammers_Copper_Hammer");
-        HAMMER_IDS.add("CozyStudios_ExcavatorsAndHammers_Iron_Hammer");
-        HAMMER_IDS.add("CozyStudios_ExcavatorsAndHammers_Cobalt_Hammer");
-        HAMMER_IDS.add("CozyStudios_ExcavatorsAndHammers_Thorium_Hammer");
-        HAMMER_IDS.add("CozyStudios_ExcavatorsAndHammers_Mithril_Hammer");
-        HAMMER_IDS.add("CozyStudios_ExcavatorsAndHammers_Onyxium_Hammer");
-        HAMMER_IDS.add("CozyStudios_ExcavatorsAndHammers_Adamantite_Hammer");
+        HAMMER_IDS.add("Tool_Mining_Hammer_Crude");
+        HAMMER_IDS.add("Tool_Mining_Hammer_Copper");
+        HAMMER_IDS.add("Tool_Mining_Hammer_Iron");
+        HAMMER_IDS.add("Tool_Mining_Hammer_Cobalt");
+        HAMMER_IDS.add("Tool_Mining_Hammer_Thorium");
+        HAMMER_IDS.add("Tool_Mining_Hammer_Mithril");
+        HAMMER_IDS.add("Tool_Mining_Hammer_Onyxium");
+        HAMMER_IDS.add("Tool_Mining_Hammer_Adamantite");
 
-        EXCAVATOR_IDS.add("CozyStudios_ExcavatorsAndHammers_Crude_Excavator");
-        EXCAVATOR_IDS.add("CozyStudios_ExcavatorsAndHammers_Copper_Excavator");
-        EXCAVATOR_IDS.add("CozyStudios_ExcavatorsAndHammers_Iron_Excavator");
-        EXCAVATOR_IDS.add("CozyStudios_ExcavatorsAndHammers_Cobalt_Excavator");
-        EXCAVATOR_IDS.add("CozyStudios_ExcavatorsAndHammers_Thorium_Excavator");
-        EXCAVATOR_IDS.add("CozyStudios_ExcavatorsAndHammers_Mithril_Excavator");
-        EXCAVATOR_IDS.add("CozyStudios_ExcavatorsAndHammers_Onyxium_Excavator");
-        EXCAVATOR_IDS.add("CozyStudios_ExcavatorsAndHammers_Adamantite_Excavator");
+        EXCAVATOR_IDS.add("Tool_Excavator_Crude");
+        EXCAVATOR_IDS.add("Tool_Excavator_Copper");
+        EXCAVATOR_IDS.add("Tool_Excavator_Iron");
+        EXCAVATOR_IDS.add("Tool_Excavator_Cobalt");
+        EXCAVATOR_IDS.add("Tool_Excavator_Thorium");
+        EXCAVATOR_IDS.add("Tool_Excavator_Mithril");
+        EXCAVATOR_IDS.add("Tool_Excavator_Onyxium");
+        EXCAVATOR_IDS.add("Tool_Excavator_Adamantite");
     }
 
     public AreaMiningSystem() {

@@ -1,14 +1,15 @@
 {
   "TranslationProperties": {
-    "Name": "Cobalt Excavator",
-    "Description": "A cobalt excavator that digs in a 3x3 area"
+    "Name": "Copper Excavator",
+    "Description": "A copper excavator that digs in a 3x3 area"
   },
-  "Parent": "CozyStudios_ExcavatorsAndHammers_Crude_Excavator",
+  "Parent": "Tool_Excavator_Crude",
   "Model": "Items/Tools/Excavator/excavator.blockymodel",
-  "Icon": "Icons/Items/Tools/Excavator/cobalt_excavator.png",
-  "Texture": "Items/Tools/Excavator/cobalt_excavator.png",
-  "Quality": "Rare",
-  "ItemLevel": 30,
+  "Icon": "Icons/Items/Tools/Excavator/copper_excavator.png",
+  "Model": "Items/Tools/Excavator/excavator.blockymodel",
+  "Texture": "Items/Tools/Excavator/copper_excavator.png",
+  "Quality": "Common",
+  "ItemLevel": 10,
   "Tool": {
     "Specs": [
       {
@@ -16,7 +17,7 @@
         "GatherType": "SoftBlocks"
       },
       {
-        "Power": 0.5,
+        "Power": 0.2,
         "GatherType": "Soils"
       },
       {
@@ -41,20 +42,20 @@
       }
     ]
   },
-  "MaxDurability": 450,
+  "MaxDurability": 180,
   "Recipe": {
-    "TimeSeconds": 4,
+    "TimeSeconds": 2,
     "Input": [
       {
-        "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 22
+        "ItemId": "Ingredient_Bar_Copper",
+        "Quantity": 12
       },
       {
         "ItemId": "Ingredient_Leather_Light",
         "Quantity": 2
       },
       {
-        "ItemId": "Ingredient_Fabric_Scrap_Wool",
+        "ItemId": "Ingredient_Stick",
         "Quantity": 2
       }
     ],
@@ -64,8 +65,7 @@
         "Type": "Crafting",
         "Categories": [
           "Workbench_Tools"
-        ],
-        "RequiredTierLevel": 3
+        ]
       }
     ]
   }

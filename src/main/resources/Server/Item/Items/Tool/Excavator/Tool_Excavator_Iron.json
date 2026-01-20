@@ -1,14 +1,14 @@
 {
   "TranslationProperties": {
-    "Name": "Cobalt Mining Hammer",
-    "Description": "A cobalt hammer that mines in a 3x3 area"
+    "Name": "Iron Excavator",
+    "Description": "An iron excavator that digs in a 3x3 area"
   },
-  "Parent": "CozyStudios_ExcavatorsAndHammers_Crude_Hammer",
-  "Icon": "Icons/Items/Tools/Hammer/cobalt_hammer.png",
-  "Model": "Items/Tools/Hammer/hammer.blockymodel",
-  "Texture": "Items/Tools/Hammer/cobalt_hammer.png",
-  "Quality": "Rare",
-  "ItemLevel": 30,
+  "Parent": "Tool_Excavator_Crude",
+  "Model": "Items/Tools/Excavator/excavator.blockymodel",
+  "Icon": "Icons/Items/Tools/Excavator/iron_excavator.png",
+  "Texture": "Items/Tools/Excavator/iron_excavator.png",
+  "Quality": "Uncommon",
+  "ItemLevel": 20,
   "Tool": {
     "Specs": [
       {
@@ -17,51 +17,45 @@
       },
       {
         "Power": 0.5,
-        "GatherType": "Soils"
+        "GatherType": "Soils",
+        "HitSoundLayer": "SFX_Shovel_T2_Impact_Nice"
       },
       {
         "Power": 0.05,
         "GatherType": "Woods"
       },
       {
-        "Power": 0.5,
+        "Power": 0.05,
         "GatherType": "Rocks"
       },
       {
         "Power": 0.5,
         "GatherType": "Benches"
-      },
-      {
-        "Power": 0.2,
-        "GatherType": "VolcanicRocks"
       }
     ],
     "DurabilityLossBlockTypes": [
       {
         "BlockSets": [
-          "Stone",
-          "Rock",
-          "Ores",
           "Soil"
         ],
         "DurabilityLossOnHit": 0.25
       }
     ]
   },
-  "MaxDurability": 500,
+  "MaxDurability": 250,
   "Recipe": {
-    "TimeSeconds": 4,
+    "TimeSeconds": 2.5,
     "Input": [
       {
-        "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 25
+        "ItemId": "Ingredient_Bar_Iron",
+        "Quantity": 15
       },
       {
-        "ItemId": "Ingredient_Leather_Heavy",
+        "ItemId": "Ingredient_Leather_Light",
         "Quantity": 2
       },
       {
-        "ItemId": "Ingredient_Fabric_Scrap_Wool",
+        "ItemId": "Ingredient_Stick",
         "Quantity": 2
       }
     ],
@@ -71,8 +65,7 @@
         "Type": "Crafting",
         "Categories": [
           "Workbench_Tools"
-        ],
-        "RequiredTierLevel": 2
+        ]
       }
     ]
   }

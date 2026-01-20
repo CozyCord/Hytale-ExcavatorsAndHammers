@@ -1,14 +1,14 @@
 {
   "TranslationProperties": {
-    "Name": "Adamantite Mining Hammer",
-    "Description": "An adamantite hammer that mines in a 3x3 area - the strongest hammer"
+    "Name": "Mithril Mining Hammer",
+    "Description": "A mithril hammer that mines in a 3x3 area"
   },
-  "Parent": "CozyStudios_ExcavatorsAndHammers_Crude_Hammer",
-  "Icon": "Icons/Items/Tools/Hammer/adamantite_hammer.png",
+  "Parent": "Tool_Mining_Hammer_Crude",
+  "Icon": "Icons/Items/Tools/Hammer/mithril_hammer.png",
   "Model": "Items/Tools/Hammer/hammer.blockymodel",
-  "Texture": "Items/Tools/Hammer/adamantite_hammer.png",
-  "Quality": "Rare",
-  "ItemLevel": 50,
+  "Texture": "Items/Tools/Hammer/mithril_hammer.png",
+  "Quality": "Epic",
+  "ItemLevel": 40,
   "Tool": {
     "Specs": [
       {
@@ -16,7 +16,7 @@
         "GatherType": "SoftBlocks"
       },
       {
-        "Power": 0.7,
+        "Power": 0.6,
         "GatherType": "Soils"
       },
       {
@@ -24,7 +24,7 @@
         "GatherType": "Woods"
       },
       {
-        "Power": 0.7,
+        "Power": 0.6,
         "GatherType": "Rocks"
       },
       {
@@ -32,7 +32,7 @@
         "GatherType": "Benches"
       },
       {
-        "Power": 0.3,
+        "Power": 0.25,
         "GatherType": "VolcanicRocks"
       }
     ],
@@ -48,21 +48,21 @@
       }
     ]
   },
-  "MaxDurability": 1000,
+  "MaxDurability": 750,
   "Recipe": {
-    "TimeSeconds": 6,
+    "TimeSeconds": 5,
     "Input": [
       {
-        "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 32
+        "ItemId": "Ingredient_Bar_Mithril",
+        "Quantity": 28
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 3
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Silk",
-        "Quantity": 3
+        "Quantity": 2
       }
     ],
     "BenchRequirement": [

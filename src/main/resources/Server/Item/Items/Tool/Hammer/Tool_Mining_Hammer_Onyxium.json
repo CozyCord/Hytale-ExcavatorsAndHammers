@@ -1,53 +1,60 @@
 {
   "TranslationProperties": {
-    "Name": "Mithril Excavator",
-    "Description": "A mithril excavator that digs in a 3x3 area"
+    "Name": "Onyxium Mining Hammer",
+    "Description": "An onyxium hammer that mines in a 3x3 area"
   },
-  "Parent": "CozyStudios_ExcavatorsAndHammers_Crude_Excavator",
-  "Model": "Items/Tools/Excavator/excavator.blockymodel",
-  "Icon": "Icons/Items/Tools/Excavator/mithril_excavator.png",
-  "Texture": "Items/Tools/Excavator/mithril_excavator.png",
+  "Parent": "Tool_Mining_Hammer_Crude",
+  "Icon": "Icons/Items/Tools/Hammer/onyxium_hammer.png",
+  "Model": "Items/Tools/Hammer/hammer.blockymodel",
+  "Texture": "Items/Tools/Hammer/onyxium_hammer.png",
   "Quality": "Epic",
-  "ItemLevel": 40,
+  "ItemLevel": 45,
   "Tool": {
     "Specs": [
       {
         "Power": 1,
-        "GatherType": "Soils"
+        "GatherType": "SoftBlocks"
       },
       {
-        "Power": 0.05,
-        "GatherType": "SoftBlocks"
+        "Power": 0.65,
+        "GatherType": "Soils"
       },
       {
         "Power": 0.05,
         "GatherType": "Woods"
       },
       {
-        "Power": 0.05,
+        "Power": 0.65,
         "GatherType": "Rocks"
       },
       {
-        "Power": 0.1,
+        "Power": 0.5,
         "GatherType": "Benches"
+      },
+      {
+        "Power": 0.28,
+        "GatherType": "VolcanicRocks"
       }
     ],
     "DurabilityLossBlockTypes": [
       {
         "BlockSets": [
+          "Stone",
+          "Rock",
+          "Ores",
           "Soil"
         ],
         "DurabilityLossOnHit": 0.25
       }
     ]
   },
-  "MaxDurability": 700,
+  "MaxDurability": 850,
   "Recipe": {
-    "TimeSeconds": 5,
+    "TimeSeconds": 5.5,
     "Input": [
       {
-        "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 28
+        "ItemId": "Ingredient_Bar_Onyxium",
+        "Quantity": 30
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",

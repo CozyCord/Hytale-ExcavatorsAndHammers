@@ -3,7 +3,7 @@
     "Name": "Adamantite Excavator",
     "Description": "An adamantite excavator that digs in a 3x3 area - epic power"
   },
-  "Parent": "CozyStudios_ExcavatorsAndHammers_Crude_Excavator",
+  "Parent": "Tool_Excavator_Crude",
   "Model": "Items/Tools/Excavator/excavator.blockymodel",
   "Icon": "Icons/Items/Tools/Excavator/adamantite_excavator.png",
   "Texture": "Items/Tools/Excavator/adamantite_excavator.png",

@@ -1,64 +1,57 @@
 {
   "TranslationProperties": {
-    "Name": "Mithril Mining Hammer",
-    "Description": "A mithril hammer that mines in a 3x3 area"
+    "Name": "Onyxium Excavator",
+    "Description": "An onyxium excavator that digs in a 3x3 area"
   },
-  "Parent": "CozyStudios_ExcavatorsAndHammers_Crude_Hammer",
-  "Icon": "Icons/Items/Tools/Hammer/mithril_hammer.png",
-  "Model": "Items/Tools/Hammer/hammer.blockymodel",
-  "Texture": "Items/Tools/Hammer/mithril_hammer.png",
+  "Parent": "Tool_Excavator_Crude",
+  "Model": "Items/Tools/Excavator/excavator.blockymodel",
+  "Icon": "Icons/Items/Tools/Excavator/onyxium_excavator.png",
+  "Texture": "Items/Tools/Excavator/onyxium_excavator.png",
   "Quality": "Epic",
-  "ItemLevel": 40,
+  "ItemLevel": 45,
   "Tool": {
     "Specs": [
       {
         "Power": 1,
-        "GatherType": "SoftBlocks"
+        "GatherType": "Soils"
       },
       {
-        "Power": 0.6,
-        "GatherType": "Soils"
+        "Power": 0.05,
+        "GatherType": "SoftBlocks"
       },
       {
         "Power": 0.05,
         "GatherType": "Woods"
       },
       {
-        "Power": 0.6,
+        "Power": 0.05,
         "GatherType": "Rocks"
       },
       {
-        "Power": 0.5,
+        "Power": 0.1,
         "GatherType": "Benches"
-      },
-      {
-        "Power": 0.25,
-        "GatherType": "VolcanicRocks"
       }
     ],
     "DurabilityLossBlockTypes": [
       {
         "BlockSets": [
-          "Stone",
-          "Rock",
-          "Ores",
           "Soil"
         ],
         "DurabilityLossOnHit": 0.25
       }
     ]
   },
-  "MaxDurability": 750,
+  "MaxDurability": 850,
   "Recipe": {
-    "TimeSeconds": 5,
+    "TimeSeconds": 5.5,
     "Input": [
       {
-        "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 28
+        "ItemId": "Ingredient_Bar_Onyxium",
+        "Quantity": 30
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 2
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Silk",

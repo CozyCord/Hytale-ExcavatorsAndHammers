@@ -49,8 +49,7 @@
     "Compatible": true
   },
   "Interactions": {
-    "Primary": "EH_Excavator_Attack",
-    "Secondary": "EH_Excavator_Attack"
+    "Primary": "EH_Excavator_Attack"
   },
   "InteractionVars": {
     "Block_Hit_Camera_Effects": {

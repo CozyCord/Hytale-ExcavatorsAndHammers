@@ -1,53 +1,60 @@
 {
   "TranslationProperties": {
-    "Name": "Onyxium Excavator",
-    "Description": "An onyxium excavator that digs in a 3x3 area"
+    "Name": "Adamantite Mining Hammer",
+    "Description": "An adamantite hammer that mines in a 3x3 area - the strongest hammer"
   },
-  "Parent": "CozyStudios_ExcavatorsAndHammers_Crude_Excavator",
-  "Model": "Items/Tools/Excavator/excavator.blockymodel",
-  "Icon": "Icons/Items/Tools/Excavator/onyxium_excavator.png",
-  "Texture": "Items/Tools/Excavator/onyxium_excavator.png",
-  "Quality": "Epic",
-  "ItemLevel": 45,
+  "Parent": "Tool_Mining_Hammer_Crude",
+  "Icon": "Icons/Items/Tools/Hammer/adamantite_hammer.png",
+  "Model": "Items/Tools/Hammer/hammer.blockymodel",
+  "Texture": "Items/Tools/Hammer/adamantite_hammer.png",
+  "Quality": "Rare",
+  "ItemLevel": 50,
   "Tool": {
     "Specs": [
       {
         "Power": 1,
-        "GatherType": "Soils"
+        "GatherType": "SoftBlocks"
       },
       {
-        "Power": 0.05,
-        "GatherType": "SoftBlocks"
+        "Power": 0.7,
+        "GatherType": "Soils"
       },
       {
         "Power": 0.05,
         "GatherType": "Woods"
       },
       {
-        "Power": 0.05,
+        "Power": 0.7,
         "GatherType": "Rocks"
       },
       {
-        "Power": 0.1,
+        "Power": 0.5,
         "GatherType": "Benches"
+      },
+      {
+        "Power": 0.3,
+        "GatherType": "VolcanicRocks"
       }
     ],
     "DurabilityLossBlockTypes": [
       {
         "BlockSets": [
+          "Stone",
+          "Rock",
+          "Ores",
           "Soil"
         ],
         "DurabilityLossOnHit": 0.25
       }
     ]
   },
-  "MaxDurability": 850,
+  "MaxDurability": 1000,
   "Recipe": {
-    "TimeSeconds": 5.5,
+    "TimeSeconds": 6,
     "Input": [
       {
-        "ItemId": "Ingredient_Bar_Onyxium",
-        "Quantity": 30
+        "ItemId": "Ingredient_Bar_Adamantite",
+        "Quantity": 32
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
@@ -55,7 +62,7 @@
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Silk",
-        "Quantity": 2
+        "Quantity": 3
       }
     ],
     "BenchRequirement": [

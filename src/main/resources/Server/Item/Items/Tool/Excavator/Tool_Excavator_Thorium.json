@@ -1,15 +1,14 @@
 {
   "TranslationProperties": {
-    "Name": "Copper Excavator",
-    "Description": "A copper excavator that digs in a 3x3 area"
+    "Name": "Thorium Excavator",
+    "Description": "A thorium excavator that digs in a 3x3 area"
   },
-  "Parent": "CozyStudios_ExcavatorsAndHammers_Crude_Excavator",
+  "Parent": "Tool_Excavator_Crude",
   "Model": "Items/Tools/Excavator/excavator.blockymodel",
-  "Icon": "Icons/Items/Tools/Excavator/copper_excavator.png",
-  "Model": "Items/Tools/Excavator/excavator.blockymodel",
-  "Texture": "Items/Tools/Excavator/copper_excavator.png",
-  "Quality": "Common",
-  "ItemLevel": 10,
+  "Icon": "Icons/Items/Tools/Excavator/thorium_excavator.png",
+  "Texture": "Items/Tools/Excavator/thorium_excavator.png",
+  "Quality": "Rare",
+  "ItemLevel": 35,
   "Tool": {
     "Specs": [
       {
@@ -17,7 +16,7 @@
         "GatherType": "SoftBlocks"
       },
       {
-        "Power": 0.2,
+        "Power": 0.5,
         "GatherType": "Soils"
       },
       {
@@ -42,20 +41,20 @@
       }
     ]
   },
-  "MaxDurability": 180,
+  "MaxDurability": 600,
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 4.5,
     "Input": [
       {
-        "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 12
+        "ItemId": "Ingredient_Bar_Thorium",
+        "Quantity": 26
       },
       {
-        "ItemId": "Ingredient_Leather_Light",
+        "ItemId": "Ingredient_Leather_Heavy",
         "Quantity": 2
       },
       {
-        "ItemId": "Ingredient_Stick",
+        "ItemId": "Ingredient_Fabric_Scrap_Wool",
         "Quantity": 2
       }
     ],
@@ -65,7 +64,8 @@
         "Type": "Crafting",
         "Categories": [
           "Workbench_Tools"
-        ]
+        ],
+        "RequiredTierLevel": 2
       }
     ]
   }

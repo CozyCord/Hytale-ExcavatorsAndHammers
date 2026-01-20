@@ -3,7 +3,7 @@
     "Name": "Copper Mining Hammer",
     "Description": "A copper hammer that mines in a 3x3 area"
   },
-  "Parent": "CozyStudios_ExcavatorsAndHammers_Crude_Hammer",
+  "Parent": "Tool_Mining_Hammer_Crude",
   "Icon": "Icons/Items/Tools/Hammer/copper_hammer.png",
   "Model": "Items/Tools/Hammer/hammer.blockymodel",
   "Texture": "Items/Tools/Hammer/copper_hammer.png",
