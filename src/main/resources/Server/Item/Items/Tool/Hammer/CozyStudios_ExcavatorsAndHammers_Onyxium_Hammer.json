@@ -1,14 +1,14 @@
 {
   "TranslationProperties": {
-    "Name": "Iron Mining Hammer",
-    "Description": "An iron hammer that mines in a 3x3 area"
+    "Name": "Onyxium Mining Hammer",
+    "Description": "An onyxium hammer that mines in a 3x3 area"
   },
   "Parent": "CozyStudios_ExcavatorsAndHammers_Crude_Hammer",
-  "Icon": "Icons/Items/Tools/Hammer/iron_hammer.png",
+  "Icon": "Icons/Items/Tools/Hammer/onyxium_hammer.png",
   "Model": "Items/Tools/Hammer/hammer.blockymodel",
-  "Texture": "Items/Tools/Hammer/iron_hammer.png",
-  "Quality": "Uncommon",
-  "ItemLevel": 20,
+  "Texture": "Items/Tools/Hammer/onyxium_hammer.png",
+  "Quality": "Epic",
+  "ItemLevel": 45,
   "Tool": {
     "Specs": [
       {
@@ -16,7 +16,7 @@
         "GatherType": "SoftBlocks"
       },
       {
-        "Power": 0.4,
+        "Power": 0.65,
         "GatherType": "Soils"
       },
       {
@@ -24,7 +24,7 @@
         "GatherType": "Woods"
       },
       {
-        "Power": 0.4,
+        "Power": 0.65,
         "GatherType": "Rocks"
       },
       {
@@ -32,7 +32,7 @@
         "GatherType": "Benches"
       },
       {
-        "Power": 0.12,
+        "Power": 0.28,
         "GatherType": "VolcanicRocks"
       }
     ],
@@ -48,20 +48,20 @@
       }
     ]
   },
-  "MaxDurability": 250,
+  "MaxDurability": 850,
   "Recipe": {
-    "TimeSeconds": 3.5,
+    "TimeSeconds": 5.5,
     "Input": [
       {
-        "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 22
+        "ItemId": "Ingredient_Bar_Onyxium",
+        "Quantity": 30
       },
       {
-        "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 2
+        "ItemId": "Ingredient_Leather_Heavy",
+        "Quantity": 3
       },
       {
-        "ItemId": "Ingredient_Fabric_Scrap_Linen",
+        "ItemId": "Ingredient_Fabric_Scrap_Silk",
         "Quantity": 2
       }
     ],
@@ -71,7 +71,8 @@
         "Type": "Crafting",
         "Categories": [
           "Workbench_Tools"
-        ]
+        ],
+        "RequiredTierLevel": 3
       }
     ]
   }

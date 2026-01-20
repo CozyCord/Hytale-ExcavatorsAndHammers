@@ -1,0 +1,33 @@
+{
+  "Input": [
+    {
+      "ItemId": "CozyStudios_ExcavatorsAndHammers_Crude_Excavator",
+      "Quantity": 1
+    }
+  ],
+  "PrimaryOutput": {
+    "ItemId": "Rubble_Stone",
+    "Quantity": 5
+  },
+  "Output": [
+    {
+      "ItemId": "Rubble_Stone",
+      "Quantity": 5
+    },
+    {
+      "ItemId": "Ingredient_Stick",
+      "Quantity": 1
+    },
+    {
+      "ItemId": "Ingredient_Fibre",
+      "Quantity": 1
+    }
+  ],
+  "BenchRequirement": [
+    {
+      "Type": "Processing",
+      "Id": "Salvagebench"
+    }
+  ],
+  "TimeSeconds": 4
+}
