@@ -1,8 +1,8 @@
 {
     "Group": "CozyStudios",
-    "Name": "ExcavatorsAndHammers",
+    "Name": "MiningHammer",
     "Version": "${version}",
-    "Description": "Adds Hammers that mine in a 3x3 area for pickaxe-mineable blocks",
+    "Description": "Adds Hammers and Excavators that mine in a 3x3 area for pickaxe-mineable blocks and shovel-mineable blocks",
     "Authors": [
         {
             "Name": "CozyStudios"

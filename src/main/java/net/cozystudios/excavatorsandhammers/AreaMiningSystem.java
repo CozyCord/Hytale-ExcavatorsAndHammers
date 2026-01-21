@@ -63,6 +63,7 @@ public final class AreaMiningSystem {
 
     private static final Set<String> HAMMER_IDS = new HashSet<>();
     private static final Set<String> EXCAVATOR_IDS = new HashSet<>();
+    private static final Set<String> LARGE_AREA_IDS = new HashSet<>();
     private static final Set<Long> PROCESSING_BLOCKS = ConcurrentHashMap.newKeySet();
 
     private enum MiningPlane {
@@ -89,10 +90,22 @@ public final class AreaMiningSystem {
         EXCAVATOR_IDS.add("Tool_Excavator_Mithril");
         EXCAVATOR_IDS.add("Tool_Excavator_Onyxium");
         EXCAVATOR_IDS.add("Tool_Excavator_Adamantite");
+
+        LARGE_AREA_IDS.add("Tool_Mining_Hammer_Mithril");
+        LARGE_AREA_IDS.add("Tool_Mining_Hammer_Adamantite");
+        LARGE_AREA_IDS.add("Tool_Excavator_Mithril");
+        LARGE_AREA_IDS.add("Tool_Excavator_Adamantite");
     }
 
     private static long packPosition(int x, int y, int z) {
         return ((long) (x & 0x3FFFFFF) << 38) | ((long) (z & 0x3FFFFFF) << 12) | (y & 0xFFF);
+    }
+
+    private static int getMiningRadius(String itemId) {
+        if (ModConfig.getInstance().isLargeAreaMiningEnabled() && LARGE_AREA_IDS.contains(itemId)) {
+            return 2;
+        }
+        return 1;
     }
 
     // Adopted from
@@ -340,16 +353,17 @@ public final class AreaMiningSystem {
             }
 
             try {
-                damageSurroundingBlocks(world, centerX, centerY, centerZ, plane, isHammer, commandBuffer, itemTool);
+                damageSurroundingBlocks(world, centerX, centerY, centerZ, plane, isHammer, commandBuffer, itemTool, itemId);
             } finally {
                 PROCESSING_BLOCKS.remove(posKey);
             }
         }
 
         private void damageSurroundingBlocks(World world, int centerX, int centerY, int centerZ, MiningPlane plane,
-                boolean isHammer, CommandBuffer<EntityStore> commandBuffer, ItemTool itemTool) {
-            for (int d1 = -1; d1 <= 1; d1++) {
-                for (int d2 = -1; d2 <= 1; d2++) {
+                boolean isHammer, CommandBuffer<EntityStore> commandBuffer, ItemTool itemTool, String itemId) {
+            int radius = getMiningRadius(itemId);
+            for (int d1 = -radius; d1 <= radius; d1++) {
+                for (int d2 = -radius; d2 <= radius; d2++) {
                     if (d1 == 0 && d2 == 0) {
                         continue;
                     }
@@ -578,16 +592,17 @@ public final class AreaMiningSystem {
             }
 
             try {
-                breakSurroundingBlocks(world, centerX, centerY, centerZ, plane, isHammer, commandBuffer, itemTool, ref);
+                breakSurroundingBlocks(world, centerX, centerY, centerZ, plane, isHammer, commandBuffer, itemTool, ref, itemId);
             } finally {
                 PROCESSING_BLOCKS.remove(posKey);
             }
         }
 
         private void breakSurroundingBlocks(World world, int centerX, int centerY, int centerZ, MiningPlane plane,
-                boolean isHammer, CommandBuffer<EntityStore> commandBuffer, ItemTool itemTool, Ref<EntityStore> ref) {
-            for (int d1 = -1; d1 <= 1; d1++) {
-                for (int d2 = -1; d2 <= 1; d2++) {
+                boolean isHammer, CommandBuffer<EntityStore> commandBuffer, ItemTool itemTool, Ref<EntityStore> ref, String itemId) {
+            int radius = getMiningRadius(itemId);
+            for (int d1 = -radius; d1 <= radius; d1++) {
+                for (int d2 = -radius; d2 <= radius; d2++) {
                     if (d1 == 0 && d2 == 0) {
                         continue;
                     }

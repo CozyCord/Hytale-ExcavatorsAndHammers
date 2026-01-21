@@ -31,7 +31,7 @@ tasks {
     }
 
     jar {
-        archiveBaseName.set("ExcavatorsAndHammers")
+        archiveBaseName.set("MiningHammer")
         archiveVersion.set(project.version.toString())
         archiveClassifier.set("")
     }
