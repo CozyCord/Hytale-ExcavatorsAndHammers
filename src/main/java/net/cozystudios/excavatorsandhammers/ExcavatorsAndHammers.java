@@ -19,8 +19,8 @@ public class ExcavatorsAndHammers extends JavaPlugin {
         LOGGER.atInfo().log("ExcavatorsAndHammers is setting up...");
 
         try {
-            AreaMiningSystem areaMiningSystem = new AreaMiningSystem();
-            this.getEntityStoreRegistry().registerSystem(areaMiningSystem);
+            this.getEntityStoreRegistry().registerSystem(new AreaMiningSystem.BreakAreaSystem());
+            this.getEntityStoreRegistry().registerSystem(new AreaMiningSystem.DamageAreaSystem());
             LOGGER.atInfo().log("Registered AreaMiningSystem successfully");
         } catch (Exception e) {
             LOGGER.atSevere().withCause(e).log("Failed to register AreaMiningSystem");

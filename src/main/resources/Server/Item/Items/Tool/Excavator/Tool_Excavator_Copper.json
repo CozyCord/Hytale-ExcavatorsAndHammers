@@ -42,7 +42,7 @@
       }
     ]
   },
-  "MaxDurability": 120,
+  "MaxDurability": 180,
   "Recipe": {
     "TimeSeconds": 2,
     "Input": [
