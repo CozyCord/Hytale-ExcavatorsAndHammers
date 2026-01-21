@@ -47,11 +47,9 @@ import com.hypixel.hytale.math.vector.Vector3f;
 import com.hypixel.hytale.logger.HytaleLogger;
 
 import java.util.Set;
-import java.util.Vector;
 import java.util.HashSet;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 
@@ -106,6 +104,55 @@ public final class AreaMiningSystem {
             return 2;
         }
         return 1;
+    }
+
+    @FunctionalInterface
+    private interface BlockAction {
+        void process(int x, int y, int z);
+    }
+
+    private static void forEachSurroundingBlock(int centerX, int centerY, int centerZ, MiningPlane plane,
+            String itemId, BlockAction action) {
+        int radius = getMiningRadius(itemId);
+        for (int d1 = -radius; d1 <= radius; d1++) {
+            for (int d2 = -radius; d2 <= radius; d2++) {
+                if (d1 == 0 && d2 == 0) {
+                    continue;
+                }
+
+                int x, y, z;
+                switch (plane) {
+                    case XZ:
+                        x = centerX + d1;
+                        y = centerY;
+                        z = centerZ + d2;
+                        break;
+                    case XY:
+                        x = centerX + d1;
+                        y = centerY + d2;
+                        z = centerZ;
+                        break;
+                    case ZY:
+                        x = centerX;
+                        y = centerY + d2;
+                        z = centerZ + d1;
+                        break;
+                    default:
+                        continue;
+                }
+
+                long posKey = packPosition(x, y, z);
+                if (!PROCESSING_BLOCKS.add(posKey)) {
+                    continue;
+                }
+
+                try {
+                    action.process(x, y, z);
+                } finally {
+                    PROCESSING_BLOCKS.remove(posKey);
+                }
+            }
+        }
     }
 
     // Adopted from
@@ -361,46 +408,8 @@ public final class AreaMiningSystem {
 
         private void damageSurroundingBlocks(World world, int centerX, int centerY, int centerZ, MiningPlane plane,
                 boolean isHammer, CommandBuffer<EntityStore> commandBuffer, ItemTool itemTool, String itemId) {
-            int radius = getMiningRadius(itemId);
-            for (int d1 = -radius; d1 <= radius; d1++) {
-                for (int d2 = -radius; d2 <= radius; d2++) {
-                    if (d1 == 0 && d2 == 0) {
-                        continue;
-                    }
-
-                    int x, y, z;
-                    switch (plane) {
-                        case XZ:
-                            x = centerX + d1;
-                            y = centerY;
-                            z = centerZ + d2;
-                            break;
-                        case XY:
-                            x = centerX + d1;
-                            y = centerY + d2;
-                            z = centerZ;
-                            break;
-                        case ZY:
-                            x = centerX;
-                            y = centerY + d2;
-                            z = centerZ + d1;
-                            break;
-                        default:
-                            continue;
-                    }
-
-                    long posKey = packPosition(x, y, z);
-                    if (!PROCESSING_BLOCKS.add(posKey)) {
-                        continue;
-                    }
-
-                    try {
-                        damangeBlockWithDrops(world, x, y, z, centerX, centerY, centerZ, isHammer, commandBuffer, itemTool);
-                    } finally {
-                        PROCESSING_BLOCKS.remove(posKey);
-                    }
-                }
-            }
+            forEachSurroundingBlock(centerX, centerY, centerZ, plane, itemId,
+                (x, y, z) -> damangeBlockWithDrops(world, x, y, z, centerX, centerY, centerZ, isHammer, commandBuffer, itemTool));
         }
 
         private void damangeBlockWithDrops(World world, int x, int y, int z, int dropX, int dropY, int dropZ,
@@ -600,46 +609,8 @@ public final class AreaMiningSystem {
 
         private void breakSurroundingBlocks(World world, int centerX, int centerY, int centerZ, MiningPlane plane,
                 boolean isHammer, CommandBuffer<EntityStore> commandBuffer, ItemTool itemTool, Ref<EntityStore> ref, String itemId) {
-            int radius = getMiningRadius(itemId);
-            for (int d1 = -radius; d1 <= radius; d1++) {
-                for (int d2 = -radius; d2 <= radius; d2++) {
-                    if (d1 == 0 && d2 == 0) {
-                        continue;
-                    }
-
-                    int x, y, z;
-                    switch (plane) {
-                        case XZ:
-                            x = centerX + d1;
-                            y = centerY;
-                            z = centerZ + d2;
-                            break;
-                        case XY:
-                            x = centerX + d1;
-                            y = centerY + d2;
-                            z = centerZ;
-                            break;
-                        case ZY:
-                            x = centerX;
-                            y = centerY + d2;
-                            z = centerZ + d1;
-                            break;
-                        default:
-                            continue;
-                    }
-
-                    long posKey = packPosition(x, y, z);
-                    if (!PROCESSING_BLOCKS.add(posKey)) {
-                        continue;
-                    }
-
-                    try {
-                        breakBlockWithDrops(world, x, y, z, centerX, centerY, centerZ, isHammer, commandBuffer, itemTool, ref);
-                    } finally {
-                        PROCESSING_BLOCKS.remove(posKey);
-                    }
-                }
-            }
+            forEachSurroundingBlock(centerX, centerY, centerZ, plane, itemId,
+                (x, y, z) -> breakBlockWithDrops(world, x, y, z, centerX, centerY, centerZ, isHammer, commandBuffer, itemTool, ref));
         }
 
         private void breakBlockWithDrops(World world, int x, int y, int z, int dropX, int dropY, int dropZ,
