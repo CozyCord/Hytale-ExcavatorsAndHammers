@@ -16,6 +16,7 @@ public class ModConfig {
 
     // Config options
     private boolean enableLargeAreaMining = true;
+    private boolean disableMinabilityCheck = false;
 
     public static ModConfig getInstance() {
         if (instance == null) {
@@ -24,12 +25,20 @@ public class ModConfig {
         return instance;
     }
 
+    public boolean isMinabilityCheckEnabled() {
+        return disableMinabilityCheck;
+    }
+
+    public void setMinabilityCheckEnabled(boolean value) {
+        this.disableMinabilityCheck = value;
+    }
+
     public boolean isLargeAreaMiningEnabled() {
         return enableLargeAreaMining;
     }
 
-    public void setLargeAreaMiningEnabled(boolean enabled) {
-        this.enableLargeAreaMining = enabled;
+    public void setLargeAreaMiningEnabled(boolean value) {
+        this.enableLargeAreaMining = value;
     }
 
     public static void load(Path configDir) {

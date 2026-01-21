@@ -426,7 +426,7 @@ public final class AreaMiningSystem {
                 return;
             }
 
-            if (!isBlockMineableByTool(blockType, isHammer)) {
+            if (!isBlockMineableByTool(blockType, isHammer) && ModConfig.getInstance().isMinabilityCheckEnabled()) {
                 return;
             }
             Store<ChunkStore> chunkStore = world.getChunkStore().getStore();
