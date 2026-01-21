@@ -1,12 +1,13 @@
 plugins {
     java
+    id("co.uzzu.dotenv.gradle") version "4.0.0"  // Use latest version  
 }
 
 group = "net.cozystudios"
 version = "1.0.0"
 
 // Path to your Hytale installation
-val hytaleServerJar = "C:/Users/dingd/AppData/Roaming/Hytale/install/release/package/game/latest/Server/HytaleServer.jar"
+val hytaleServerJar = env.HYTALE_SERVER_JAR
 
 repositories {
     mavenCentral()
@@ -14,7 +15,7 @@ repositories {
 
 dependencies {
     // HytaleServer.jar from local Hytale installation (includes guava, gson, etc.)
-    compileOnly(files(hytaleServerJar))
+    implementation (files(hytaleServerJar.value))
 }
 
 java {

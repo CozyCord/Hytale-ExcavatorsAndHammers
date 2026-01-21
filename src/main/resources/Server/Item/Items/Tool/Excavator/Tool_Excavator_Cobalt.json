@@ -1,0 +1,72 @@
+{
+  "TranslationProperties": {
+    "Name": "Cobalt Excavator",
+    "Description": "A cobalt excavator that digs in a 3x3 area"
+  },
+  "Parent": "Tool_Excavator_Crude",
+  "Model": "Items/Tools/Excavator/excavator.blockymodel",
+  "Icon": "Icons/Items/Tools/Excavator/cobalt_excavator.png",
+  "Texture": "Items/Tools/Excavator/cobalt_excavator.png",
+  "Quality": "Rare",
+  "ItemLevel": 30,
+  "Tool": {
+    "Specs": [
+      {
+        "Power": 1,
+        "GatherType": "SoftBlocks"
+      },
+      {
+        "Power": 0.5,
+        "GatherType": "Soils"
+      },
+      {
+        "Power": 0.05,
+        "GatherType": "Woods"
+      },
+      {
+        "Power": 0.05,
+        "GatherType": "Rocks"
+      },
+      {
+        "Power": 0.5,
+        "GatherType": "Benches"
+      }
+    ],
+    "DurabilityLossBlockTypes": [
+      {
+        "BlockSets": [
+          "Soil"
+        ],
+        "DurabilityLossOnHit": 0.25
+      }
+    ]
+  },
+  "MaxDurability": 450,
+  "Recipe": {
+    "TimeSeconds": 4,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Cobalt",
+        "Quantity": 22
+      },
+      {
+        "ItemId": "Ingredient_Leather_Light",
+        "Quantity": 2
+      },
+      {
+        "ItemId": "Ingredient_Fabric_Scrap_Wool",
+        "Quantity": 2
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Workbench",
+        "Type": "Crafting",
+        "Categories": [
+          "Workbench_Tools"
+        ],
+        "RequiredTierLevel": 3
+      }
+    ]
+  }
+}
