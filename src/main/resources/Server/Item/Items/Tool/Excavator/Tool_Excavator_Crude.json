@@ -6,7 +6,7 @@
   "Categories": [
     "Items.Tools"
   ],
-  "Icon": "Icons/Items/Tools/Excavator/copper_excavator.png",
+  "Icon": "Icons/Items/Tools/Excavator/crude_excavator.png",
   "Model": "Items/Tools/Excavator/crude_excavator.blockymodel",
   "Texture": "Items/Tools/Excavator/crude_excavator.png",
   "Quality": "Common",
