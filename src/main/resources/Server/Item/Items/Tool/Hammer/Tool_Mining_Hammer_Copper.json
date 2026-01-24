@@ -8,7 +8,7 @@
   "Model": "Items/Tools/Hammer/hammer.blockymodel",
   "Texture": "Items/Tools/Hammer/copper_hammer.png",
   "Quality": "Common",
-  "ItemLevel": 10,
+  "ItemLevel": 12,
   "Tool": {
     "Specs": [
       {
@@ -16,7 +16,7 @@
         "GatherType": "SoftBlocks"
       },
       {
-        "Power": 0.25,
+        "Power": 0.5,
         "GatherType": "Soils"
       },
       {
@@ -24,16 +24,49 @@
         "GatherType": "Woods"
       },
       {
-        "Power": 0.25,
-        "GatherType": "Rocks"
+        "Power": 0.35,
+        "GatherType": "Rocks",
+        "Quality": 2
       },
       {
         "Power": 0.5,
         "GatherType": "Benches"
       },
       {
-        "Power": 0.1,
+        "Power": 0.12,
         "GatherType": "VolcanicRocks"
+      },
+      {
+        "Power": 0.25,
+        "GatherType": "OreCopper"
+      },
+      {
+        "Power": 0.125,
+        "GatherType": "OreIron"
+      },
+      {
+        "Power": 0.125,
+        "GatherType": "OreSilver"
+      },
+      {
+        "Power": 0.125,
+        "GatherType": "OreGold"
+      },
+      {
+        "Power": 0.084,
+        "GatherType": "OreThorium"
+      },
+      {
+        "Power": 0.084,
+        "GatherType": "OreCobalt"
+      },
+      {
+        "Power": 0.063,
+        "GatherType": "OreAdamantite"
+      },
+      {
+        "Power": 0.05,
+        "GatherType": "OreMithril"
       }
     ],
     "DurabilityLossBlockTypes": [
@@ -48,7 +81,7 @@
       }
     ]
   },
-  "MaxDurability": 180,
+  "MaxDurability": 400,
   "Recipe": {
     "TimeSeconds": 2,
     "Input": [
@@ -57,12 +90,12 @@
         "Quantity": 12
       },
       {
-        "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 2
+        "ResourceTypeId": "Wood_Trunk",
+        "Quantity": 6
       },
       {
-        "ItemId": "Ingredient_Stick",
-        "Quantity": 2
+        "ItemId": "Ingredient_Fibre",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [

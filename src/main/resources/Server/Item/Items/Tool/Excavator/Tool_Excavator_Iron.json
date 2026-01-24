@@ -31,18 +31,53 @@
       {
         "Power": 0.5,
         "GatherType": "Benches"
+      },
+      {
+        "Power": 0.046,
+        "GatherType": "OreCopper"
+      },
+      {
+        "Power": 0.042,
+        "GatherType": "OreIron"
+      },
+      {
+        "Power": 0.042,
+        "GatherType": "OreSilver"
+      },
+      {
+        "Power": 0.042,
+        "GatherType": "OreGold"
+      },
+      {
+        "Power": 0.036,
+        "GatherType": "OreThorium"
+      },
+      {
+        "Power": 0.036,
+        "GatherType": "OreCobalt"
+      },
+      {
+        "Power": 0.032,
+        "GatherType": "OreAdamantite"
+      },
+      {
+        "Power": 0.028,
+        "GatherType": "OreMithril"
       }
     ],
     "DurabilityLossBlockTypes": [
       {
         "BlockSets": [
+          "Stone",
+          "Rock",
+          "Ores",
           "Soil"
         ],
         "DurabilityLossOnHit": 0.25
       }
     ]
   },
-  "MaxDurability": 250,
+  "MaxDurability": 500,
   "Recipe": {
     "TimeSeconds": 2.5,
     "Input": [
@@ -52,7 +87,7 @@
       },
       {
         "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 2
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Stick",

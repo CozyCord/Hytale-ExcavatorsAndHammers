@@ -8,7 +8,7 @@
   "Model": "Items/Tools/Hammer/hammer.blockymodel",
   "Texture": "Items/Tools/Hammer/mithril_hammer.png",
   "Quality": "Epic",
-  "ItemLevel": 40,
+  "ItemLevel": 50,
   "Tool": {
     "Specs": [
       {
@@ -16,7 +16,7 @@
         "GatherType": "SoftBlocks"
       },
       {
-        "Power": 0.6,
+        "Power": 1.0,
         "GatherType": "Soils"
       },
       {
@@ -24,16 +24,50 @@
         "GatherType": "Woods"
       },
       {
-        "Power": 0.6,
-        "GatherType": "Rocks"
+        "Power": 1.0,
+        "GatherType": "Rocks",
+        "Quality": 6
       },
       {
         "Power": 0.5,
         "GatherType": "Benches"
       },
       {
-        "Power": 0.25,
+        "Power": 0.34,
         "GatherType": "VolcanicRocks"
+      },
+      {
+        "Power": 1.0,
+        "GatherType": "OreCopper"
+      },
+      {
+        "Power": 1.0,
+        "GatherType": "OreIron"
+      },
+      {
+        "Power": 1.0,
+        "GatherType": "OreSilver"
+      },
+      {
+        "Power": 1.0,
+        "GatherType": "OreGold"
+      },
+      {
+        "Power": 0.5,
+        "GatherType": "OreThorium"
+      },
+      {
+        "Power": 0.5,
+        "GatherType": "OreCobalt"
+      },
+      {
+        "Power": 0.5,
+        "GatherType": "OreAdamantite",
+        "Quality": 4
+      },
+      {
+        "Power": 0.25,
+        "GatherType": "OreMithril"
       }
     ],
     "DurabilityLossBlockTypes": [
@@ -48,13 +82,13 @@
       }
     ]
   },
-  "MaxDurability": 750,
+  "MaxDurability": 800,
   "Recipe": {
     "TimeSeconds": 5,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 28
+        "Quantity": 30
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",

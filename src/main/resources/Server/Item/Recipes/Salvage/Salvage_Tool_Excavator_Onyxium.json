@@ -7,12 +7,12 @@
   ],
   "PrimaryOutput": {
     "ItemId": "Ore_Onyxium",
-    "Quantity": 15
+    "Quantity": 16
   },
   "Output": [
     {
       "ItemId": "Ore_Onyxium",
-      "Quantity": 15
+      "Quantity": 16
     },
     {
       "ItemId": "Ingredient_Leather_Heavy",

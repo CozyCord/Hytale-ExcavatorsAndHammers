@@ -8,7 +8,7 @@
   "Model": "Items/Tools/Hammer/hammer.blockymodel",
   "Texture": "Items/Tools/Hammer/thorium_hammer.png",
   "Quality": "Rare",
-  "ItemLevel": 35,
+  "ItemLevel": 30,
   "Tool": {
     "Specs": [
       {
@@ -16,7 +16,7 @@
         "GatherType": "SoftBlocks"
       },
       {
-        "Power": 0.55,
+        "Power": 0.5,
         "GatherType": "Soils"
       },
       {
@@ -24,16 +24,50 @@
         "GatherType": "Woods"
       },
       {
-        "Power": 0.55,
-        "GatherType": "Rocks"
+        "Power": 0.5,
+        "GatherType": "Rocks",
+        "Quality": 4
       },
       {
         "Power": 0.5,
         "GatherType": "Benches"
       },
       {
-        "Power": 0.22,
+        "Power": 0.17,
         "GatherType": "VolcanicRocks"
+      },
+      {
+        "Power": 0.5,
+        "GatherType": "OreCopper"
+      },
+      {
+        "Power": 0.5,
+        "GatherType": "OreIron"
+      },
+      {
+        "Power": 0.5,
+        "GatherType": "OreSilver"
+      },
+      {
+        "Power": 0.5,
+        "GatherType": "OreGold"
+      },
+      {
+        "Power": 0.25,
+        "GatherType": "OreThorium"
+      },
+      {
+        "Power": 0.25,
+        "GatherType": "OreCobalt"
+      },
+      {
+        "Power": 0.125,
+        "GatherType": "OreAdamantite",
+        "Quality": 4
+      },
+      {
+        "Power": 0.084,
+        "GatherType": "OreMithril"
       }
     ],
     "DurabilityLossBlockTypes": [
@@ -48,7 +82,7 @@
       }
     ]
   },
-  "MaxDurability": 600,
+  "MaxDurability": 700,
   "Recipe": {
     "TimeSeconds": 4.5,
     "Input": [

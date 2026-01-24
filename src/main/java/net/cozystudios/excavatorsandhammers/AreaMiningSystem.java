@@ -91,7 +91,7 @@ public final class AreaMiningSystem {
 
         LARGE_AREA_IDS.add("Tool_Mining_Hammer_Mithril");
         LARGE_AREA_IDS.add("Tool_Mining_Hammer_Adamantite");
-        LARGE_AREA_IDS.add("Tool_Excavator_Onyxium");
+        LARGE_AREA_IDS.add("Tool_Mining_Hammer_Onyxium");
         LARGE_AREA_IDS.add("Tool_Excavator_Mithril");
         LARGE_AREA_IDS.add("Tool_Excavator_Adamantite");
         LARGE_AREA_IDS.add("Tool_Excavator_Onyxium");

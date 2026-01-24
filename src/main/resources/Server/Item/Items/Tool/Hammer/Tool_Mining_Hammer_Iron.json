@@ -10,13 +10,13 @@
   "Quality": "Uncommon",
   "ItemLevel": 20,
   "Tool": {
-    "Specs": [
+   "Specs": [
       {
         "Power": 1,
         "GatherType": "SoftBlocks"
       },
       {
-        "Power": 0.4,
+        "Power": 0.5,
         "GatherType": "Soils"
       },
       {
@@ -24,16 +24,49 @@
         "GatherType": "Woods"
       },
       {
-        "Power": 0.4,
-        "GatherType": "Rocks"
+        "Power": 0.5,
+        "GatherType": "Rocks",
+        "Quality": 3
       },
       {
         "Power": 0.5,
         "GatherType": "Benches"
       },
       {
-        "Power": 0.12,
+        "Power": 0.17,
         "GatherType": "VolcanicRocks"
+      },
+      {
+        "Power": 0.5,
+        "GatherType": "OreCopper"
+      },
+      {
+        "Power": 0.25,
+        "GatherType": "OreIron"
+      },
+      {
+        "Power": 0.25,
+        "GatherType": "OreSilver"
+      },
+      {
+        "Power": 0.25,
+        "GatherType": "OreGold"
+      },
+      {
+        "Power": 0.125,
+        "GatherType": "OreThorium"
+      },
+      {
+        "Power": 0.125,
+        "GatherType": "OreCobalt"
+      },
+      {
+        "Power": 0.084,
+        "GatherType": "OreAdamantite"
+      },
+      {
+        "Power": 0.063,
+        "GatherType": "OreMithril"
       }
     ],
     "DurabilityLossBlockTypes": [
@@ -48,7 +81,7 @@
       }
     ]
   },
-  "MaxDurability": 250,
+  "MaxDurability": 500,
   "Recipe": {
     "TimeSeconds": 3.5,
     "Input": [

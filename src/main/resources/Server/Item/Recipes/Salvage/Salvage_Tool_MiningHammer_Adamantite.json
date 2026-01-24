@@ -7,12 +7,12 @@
   ],
   "PrimaryOutput": {
     "ItemId": "Ore_Adamantite",
-    "Quantity": 16
+    "Quantity": 14
   },
   "Output": [
     {
       "ItemId": "Ore_Adamantite",
-      "Quantity": 16
+      "Quantity": 14
     },
     {
         "ItemId": "Ingredient_Leather_Heavy",

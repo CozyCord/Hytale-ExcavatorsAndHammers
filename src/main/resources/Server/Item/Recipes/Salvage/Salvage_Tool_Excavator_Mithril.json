@@ -7,12 +7,12 @@
   ],
   "PrimaryOutput": {
     "ItemId": "Ore_Mithril",
-    "Quantity": 14
+    "Quantity": 15
   },
   "Output": [
     {
       "ItemId": "Ore_Mithril",
-      "Quantity": 14
+      "Quantity": 15
     },
     {
       "ItemId": "Ingredient_Leather_Heavy",

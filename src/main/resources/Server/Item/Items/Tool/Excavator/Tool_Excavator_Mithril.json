@@ -13,11 +13,11 @@
     "Specs": [
       {
         "Power": 1,
-        "GatherType": "Soils"
+        "GatherType": "SoftBlocks"
       },
       {
-        "Power": 0.05,
-        "GatherType": "SoftBlocks"
+        "Power": 0.9,
+        "GatherType": "Soils"
       },
       {
         "Power": 0.05,
@@ -28,26 +28,61 @@
         "GatherType": "Rocks"
       },
       {
-        "Power": 0.1,
+        "Power": 0.5,
         "GatherType": "Benches"
+      },
+      {
+        "Power": 0.046,
+        "GatherType": "OreCopper"
+      },
+      {
+        "Power": 0.046,
+        "GatherType": "OreIron"
+      },
+      {
+        "Power": 0.046,
+        "GatherType": "OreSilver"
+      },
+      {
+        "Power": 0.046,
+        "GatherType": "OreGold"
+      },
+      {
+        "Power": 0.042,
+        "GatherType": "OreThorium"
+      },
+      {
+        "Power": 0.042,
+        "GatherType": "OreCobalt"
+      },
+      {
+        "Power": 0.036,
+        "GatherType": "OreAdamantite"
+      },
+      {
+        "Power": 0.032,
+        "GatherType": "OreMithril"
       }
     ],
     "DurabilityLossBlockTypes": [
       {
         "BlockSets": [
+          "Stone",
+          "Rock",
+          "Ores",
           "Soil"
         ],
         "DurabilityLossOnHit": 0.25
       }
     ]
   },
-  "MaxDurability": 700,
+  "MaxDurability": 800,
   "Recipe": {
     "TimeSeconds": 5,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 28
+        "Quantity": 30
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",

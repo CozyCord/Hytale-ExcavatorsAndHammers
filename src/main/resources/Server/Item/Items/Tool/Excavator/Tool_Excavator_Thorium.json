@@ -16,7 +16,7 @@
         "GatherType": "SoftBlocks"
       },
       {
-        "Power": 0.5,
+        "Power": 0.6,
         "GatherType": "Soils"
       },
       {
@@ -30,18 +30,53 @@
       {
         "Power": 0.5,
         "GatherType": "Benches"
+      },
+      {
+        "Power": 0.046,
+        "GatherType": "OreCopper"
+      },
+      {
+        "Power": 0.046,
+        "GatherType": "OreIron"
+      },
+      {
+        "Power": 0.046,
+        "GatherType": "OreSilver"
+      },
+      {
+        "Power": 0.046,
+        "GatherType": "OreGold"
+      },
+      {
+        "Power": 0.042,
+        "GatherType": "OreThorium"
+      },
+      {
+        "Power": 0.042,
+        "GatherType": "OreCobalt"
+      },
+      {
+        "Power": 0.036,
+        "GatherType": "OreAdamantite"
+      },
+      {
+        "Power": 0.032,
+        "GatherType": "OreMithril"
       }
     ],
     "DurabilityLossBlockTypes": [
       {
         "BlockSets": [
+          "Stone",
+          "Rock",
+          "Ores",
           "Soil"
         ],
         "DurabilityLossOnHit": 0.25
       }
     ]
   },
-  "MaxDurability": 600,
+  "MaxDurability": 700,
   "Recipe": {
     "TimeSeconds": 4.5,
     "Input": [

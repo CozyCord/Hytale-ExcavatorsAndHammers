@@ -10,7 +10,7 @@
   "Model": "Items/Tools/Hammer/hammer_crude.blockymodel",
   "Texture": "Items/Tools/Hammer/crude_hammer.png",
   "Quality": "Common",
-  "ItemLevel": 3,
+  "ItemLevel": 10,
   "MaxStack": 1,
   "PlayerAnimationsId": "Pickaxe",
   "Tool": {
@@ -20,7 +20,7 @@
         "GatherType": "SoftBlocks"
       },
       {
-        "Power": 0.25,
+        "Power": 0.35,
         "GatherType": "Soils"
       },
       {
@@ -29,15 +29,48 @@
       },
       {
         "Power": 0.25,
-        "GatherType": "Rocks"
+        "GatherType": "Rocks",
+        "Quality": 1
       },
       {
         "Power": 0.5,
         "GatherType": "Benches"
       },
       {
-        "Power": 0.1,
+        "Power": 0.084,
         "GatherType": "VolcanicRocks"
+      },
+      {
+        "Power": 0.125,
+        "GatherType": "OreCopper"
+      },
+      {
+        "Power": 0.084,
+        "GatherType": "OreIron"
+      },
+      {
+        "Power": 0.084,
+        "GatherType": "OreSilver"
+      },
+      {
+        "Power": 0.084,
+        "GatherType": "OreGold"
+      },
+      {
+        "Power": 0.063,
+        "GatherType": "OreThorium"
+      },
+      {
+        "Power": 0.063,
+        "GatherType": "OreCobalt"
+      },
+      {
+        "Power": 0.05,
+        "GatherType": "OreAdamantite"
+      },
+      {
+        "Power": 0.042,
+        "GatherType": "OreMithril"
       }
     ],
     "DurabilityLossBlockTypes": [
@@ -109,7 +142,7 @@
       0
     ]
   },
-  "MaxDurability": 120,
+  "MaxDurability": 300,
   "Tags": {
     "Type": [
       "Tool"

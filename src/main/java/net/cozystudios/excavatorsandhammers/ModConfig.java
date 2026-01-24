@@ -26,7 +26,7 @@ public class ModConfig {
     }
 
     public boolean isMinabilityCheckEnabled() {
-        return disableMinabilityCheck;
+        return !disableMinabilityCheck;
     }
 
     public void setMinabilityCheckEnabled(boolean value) {

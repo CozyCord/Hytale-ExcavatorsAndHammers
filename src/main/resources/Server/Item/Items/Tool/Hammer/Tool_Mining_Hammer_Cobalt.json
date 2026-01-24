@@ -10,7 +10,7 @@
   "Quality": "Rare",
   "ItemLevel": 30,
   "Tool": {
-    "Specs": [
+"Specs": [
       {
         "Power": 1,
         "GatherType": "SoftBlocks"
@@ -25,15 +25,49 @@
       },
       {
         "Power": 0.5,
-        "GatherType": "Rocks"
+        "GatherType": "Rocks",
+        "Quality": 4
       },
       {
         "Power": 0.5,
         "GatherType": "Benches"
       },
       {
-        "Power": 0.2,
+        "Power": 0.17,
         "GatherType": "VolcanicRocks"
+      },
+      {
+        "Power": 0.5,
+        "GatherType": "OreCopper"
+      },
+      {
+        "Power": 0.5,
+        "GatherType": "OreIron"
+      },
+      {
+        "Power": 0.5,
+        "GatherType": "OreSilver"
+      },
+      {
+        "Power": 0.5,
+        "GatherType": "OreGold"
+      },
+      {
+        "Power": 0.25,
+        "GatherType": "OreThorium"
+      },
+      {
+        "Power": 0.25,
+        "GatherType": "OreCobalt"
+      },
+      {
+        "Power": 0.125,
+        "GatherType": "OreAdamantite",
+        "Quality": 4
+      },
+      {
+        "Power": 0.084,
+        "GatherType": "OreMithril"
       }
     ],
     "DurabilityLossBlockTypes": [
@@ -48,7 +82,7 @@
       }
     ]
   },
-  "MaxDurability": 500,
+  "MaxDurability": 600,
   "Recipe": {
     "TimeSeconds": 4,
     "Input": [
@@ -62,7 +96,7 @@
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Wool",
-        "Quantity": 2
+        "Quantity": 4
       }
     ],
     "BenchRequirement": [
