@@ -1,18 +1,23 @@
 {
     "Group": "CozyStudios",
     "Name": "MiningHammer",
-    "Version": "${version}",
+    "Version": "1.0.0",
     "Description": "Adds Hammers and Excavators that mine in a 3x3 area for pickaxe-mineable blocks and shovel-mineable blocks",
     "Authors": [
         {
             "Name": "CozyStudios"
+        },
+        {
+            "Name": "Daniel Belmes"
         }
     ],
     "Website": "https://cozystudios.org",
-    "ServerVersion": "*",
-    "Dependencies": {},
+    "Dependencies": {
+        "daniel.belmes:HytaleInteractions": "1.0.0"
+    },
     "OptionalDependencies": {},
+    "LoadBefore": {},
     "DisabledByDefault": false,
-    "Main": "net.cozystudios.excavatorsandhammers.ExcavatorsAndHammers",
-    "IncludesAssetPack": true
+    "IncludesAssetPack": false,
+    "SubPlugins": []
 }

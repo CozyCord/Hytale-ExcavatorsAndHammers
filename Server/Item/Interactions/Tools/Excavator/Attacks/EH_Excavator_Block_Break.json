@@ -1,0 +1,41 @@
+{
+  "Type": "Simple",
+  "$Comment": "Prepare Delay",
+  "RunTime": 0.083,
+  "Next": {
+    "Type": "BlockRadius",
+    "RunTime": 0.1,
+    "Radius": [
+      1,
+      1,
+      1
+    ],
+    "ForBlock": {
+      "Interactions": [
+        {
+          "Type": "UseBlock",
+          "Failed": {
+            "Type": "BreakBlock",
+            "Tool": "Shovel",
+            "UseLatestTarget": false
+          },
+          "Next": {
+            "Type": "Replace",
+            "Var": "Block_Hit_Camera_Effects",
+            "DefaultOk": true,
+            "DefaultValue": {
+              "Interactions": [
+                {
+                  "Type": "Simple",
+                  "Effects": {
+                    "CameraEffect": "Shovel_Dig"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}
