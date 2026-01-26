@@ -82,6 +82,48 @@
       }
     ]
   },
+  "InteractionVars": {
+    "Block_Radius_Int": {
+      "Interactions": [
+        {
+          "Type": "BlockRadius",
+          "RunTime": 0.1,
+          "Radius": [
+            2,
+            2,
+            0
+          ],
+          "ForBlock": {
+            "Interactions": [
+              {
+                "Type": "UseBlock",
+                "Failed": {
+                  "Type": "BreakBlock",
+                  "Tool": "Pickaxe",
+                  "UseLatestTarget": false
+                },
+                "Next": {
+                  "Type": "Replace",
+                  "Var": "Block_Hit_Camera_Effects",
+                  "DefaultOk": true,
+                  "DefaultValue": {
+                    "Interactions": [
+                      {
+                        "Type": "Simple",
+                        "Effects": {
+                          "CameraEffect": "Pickaxe_Mine_Impact"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
   "MaxDurability": 800,
   "Recipe": {
     "TimeSeconds": 6,
