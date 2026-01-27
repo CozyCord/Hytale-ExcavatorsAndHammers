@@ -16,7 +16,7 @@
         "GatherType": "SoftBlocks"
       },
       {
-        "Power": 0.9,
+        "Power": 1,
         "GatherType": "Soils"
       },
       {
