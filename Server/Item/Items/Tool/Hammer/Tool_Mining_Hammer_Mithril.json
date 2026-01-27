@@ -87,7 +87,6 @@
       "Interactions": [
         {
           "Type": "ConfigCondition",
-          "ModName": "ExcavatorsAndHammers",
           "ConfigVariable": "disableLargeAreaMining",
           "Next": {
             "Type": "BlockRadius",
