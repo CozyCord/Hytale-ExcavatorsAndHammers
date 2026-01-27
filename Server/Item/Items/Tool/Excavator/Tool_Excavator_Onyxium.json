@@ -76,43 +76,84 @@
       }
     ]
   },
-    "InteractionVars": {
+  "InteractionVars": {
     "Block_Radius_Int": {
       "Interactions": [
         {
-          "Type": "BlockRadius",
-          "RunTime": 0.1,
-          "Radius": [
-            2,
-            2,
-            0
-          ],
-          "ForBlock": {
-            "Interactions": [
-              {
-                "Type": "UseBlock",
-                "Failed": {
-                  "Type": "BreakBlock",
-                  "Tool": "Shovel",
-                  "UseLatestTarget": false
-                },
-                "Next": {
-                  "Type": "Replace",
-                  "Var": "Block_Hit_Camera_Effects",
-                  "DefaultOk": true,
-                  "DefaultValue": {
-                    "Interactions": [
-                      {
-                        "Type": "Simple",
-                        "Effects": {
-                          "CameraEffect": "Shovel_Dig"
+          "Type": "ConfigCondition",
+          "ModName": "ExcavatorsAndHammers",
+          "ConfigVariable": "disableLargeAreaMining",
+          "Next": {
+            "Type": "BlockRadius",
+            "RunTime": 0.1,
+            "Radius": [
+              1,
+              1,
+              0
+            ],
+            "ForBlock": {
+              "Interactions": [
+                {
+                  "Type": "UseBlock",
+                  "Failed": {
+                    "Type": "BreakBlock",
+                    "Tool": "Shovel",
+                    "UseLatestTarget": false
+                  },
+                  "Next": {
+                    "Type": "Replace",
+                    "Var": "Block_Hit_Camera_Effects",
+                    "DefaultOk": true,
+                    "DefaultValue": {
+                      "Interactions": [
+                        {
+                          "Type": "Simple",
+                          "Effects": {
+                            "CameraEffect": "Shovel_Dig"
+                          }
                         }
-                      }
-                    ]
+                      ]
+                    }
                   }
                 }
-              }
-            ]
+              ]
+            }
+          },
+          "Failed": {
+            "Type": "BlockRadius",
+            "RunTime": 0.1,
+            "Radius": [
+              2,
+              2,
+              0
+            ],
+            "ForBlock": {
+              "Interactions": [
+                {
+                  "Type": "UseBlock",
+                  "Failed": {
+                    "Type": "BreakBlock",
+                    "Tool": "Shovel",
+                    "UseLatestTarget": false
+                  },
+                  "Next": {
+                    "Type": "Replace",
+                    "Var": "Block_Hit_Camera_Effects",
+                    "DefaultOk": true,
+                    "DefaultValue": {
+                      "Interactions": [
+                        {
+                          "Type": "Simple",
+                          "Effects": {
+                            "CameraEffect": "Shovel_Dig"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
           }
         }
       ]
