@@ -10,7 +10,6 @@
       "Interactions": [
         {
           "Type": "BlockRadius",
-          "RunTime": 0.1,
           "Radius": [
             1,
             1,

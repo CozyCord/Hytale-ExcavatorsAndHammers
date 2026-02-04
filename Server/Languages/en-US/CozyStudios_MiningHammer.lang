@@ -1,0 +1,19 @@
+hammer.crude.name = Crude Mining Hammer
+hammer.copper.name = Copper Mining Hammer
+hammer.iron.name = Iron Mining Hammer
+hammer.thorium.name = Thorium Mining Hammer
+hammer.cobalt.name = Cobalt Mining Hammer
+hammer.adamantite.name = Adamantite Mining Hammer
+hammer.mithril.name = Mithril Mining Hammer
+hammer.onyxium.name = Onyxium Mining Hammer
+hammer.description = A Mining hammer that mines in a large radius
+
+excavator.crude.name = Crude Excavator
+excavator.copper.name = Copper Excavator
+excavator.iron.name = Iron Excavator
+excavator.thorium.name = Thorium Excavator
+excavator.cobalt.name = Cobalt Excavator
+excavator.adamantite.name = Adamantite Excavator
+excavator.mithril.name = Mithril Excavator
+excavator.onyxium.name = Onyxium Excavator
+excavator.description = An Excavator that digs in a large radius

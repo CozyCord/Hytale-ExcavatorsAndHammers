@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "Crude Excavator",
-    "Description": "A crude excavator that digs in a 3x3 area"
+    "Name": "CozyStudios_MiningHammer.excavator.crude.name",
+    "Description": "CozyStudios_MiningHammer.excavator.description"
   },
   "Categories": [
     "Items.Tools"

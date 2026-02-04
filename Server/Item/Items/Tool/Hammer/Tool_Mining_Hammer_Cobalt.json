@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "Cobalt Mining Hammer",
-    "Description": "A cobalt hammer that mines in a 3x3 area"
+    "Name": "CozyStudios_MiningHammer.hammer.cobalt.name",
+    "Description": "CozyStudios_MiningHammer.hammer.description"
   },
   "Parent": "Tool_Mining_Hammer_Crude",
   "Icon": "Icons/Items/Tools/Hammer/cobalt_hammer.png",

@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "Thorium Excavator",
-    "Description": "A thorium excavator that digs in a 3x3 area"
+    "Name": "CozyStudios_MiningHammer.excavator.thorium.name",
+    "Description": "CozyStudios_MiningHammer.excavator.description"
   },
   "Parent": "Tool_Excavator_Crude",
   "Model": "Items/Tools/Excavator/excavator.blockymodel",

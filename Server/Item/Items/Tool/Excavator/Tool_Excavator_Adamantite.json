@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "Adamantite Excavator",
-    "Description": "An adamantite excavator that digs in a 3x3 area - epic power"
+    "Name": "CozyStudios_MiningHammer.excavator.adamantite.name",
+    "Description": "CozyStudios_MiningHammer.excavator.description"
   },
   "Parent": "Tool_Excavator_Crude",
   "Model": "Items/Tools/Excavator/excavator.blockymodel",

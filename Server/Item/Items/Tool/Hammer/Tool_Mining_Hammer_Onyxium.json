@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "Onyxium Mining Hammer",
-    "Description": "An onyxium hammer that mines in a 3x3 area"
+    "Name": "CozyStudios_MiningHammer.hammer.onyxium.name",
+    "Description": "CozyStudios_MiningHammer.hammer.description"
   },
   "Parent": "Tool_Mining_Hammer_Crude",
   "Icon": "Icons/Items/Tools/Hammer/onyxium_hammer.png",

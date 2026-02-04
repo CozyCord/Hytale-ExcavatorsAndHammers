@@ -13,7 +13,7 @@
     ],
     "Website": "https://cozystudios.org",
     "Dependencies": {
-        "daniel.belmes:HytaleInteractions": "1.1.1"
+        "daniel.belmes:HytaleInteractions": "^1.1.1"
     },
     "OptionalDependencies": {},
     "LoadBefore": {},

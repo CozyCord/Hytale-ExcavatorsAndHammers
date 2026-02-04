@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "Iron Excavator",
-    "Description": "An iron excavator that digs in a 3x3 area"
+    "Name": "CozyStudios_MiningHammer.excavator.iron.name",
+    "Description": "CozyStudios_MiningHammer.excavator.description"
   },
   "Parent": "Tool_Excavator_Crude",
   "Model": "Items/Tools/Excavator/excavator.blockymodel",
