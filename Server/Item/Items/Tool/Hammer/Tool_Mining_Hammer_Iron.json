@@ -1,0 +1,111 @@
+{
+  "TranslationProperties": {
+    "Name": "CozyStudios_MiningHammer.hammer.iron.name",
+    "Description": "CozyStudios_MiningHammer.hammer.description"
+  },
+  "Parent": "Tool_Mining_Hammer_Crude",
+  "Icon": "Icons/Items/Tools/Hammer/iron_hammer.png",
+  "Model": "Items/Tools/Hammer/hammer.blockymodel",
+  "Texture": "Items/Tools/Hammer/iron_hammer.png",
+  "Quality": "Uncommon",
+  "ItemLevel": 20,
+  "Tool": {
+   "Specs": [
+      {
+        "Power": 1,
+        "GatherType": "SoftBlocks"
+      },
+      {
+        "Power": 0.4,
+        "GatherType": "Soils"
+      },
+      {
+        "Power": 0.05,
+        "GatherType": "Woods"
+      },
+      {
+        "Power": 0.5,
+        "GatherType": "Rocks",
+        "Quality": 3
+      },
+      {
+        "Power": 0.5,
+        "GatherType": "Benches"
+      },
+      {
+        "Power": 0.17,
+        "GatherType": "VolcanicRocks"
+      },
+      {
+        "Power": 0.5,
+        "GatherType": "OreCopper"
+      },
+      {
+        "Power": 0.25,
+        "GatherType": "OreIron"
+      },
+      {
+        "Power": 0.25,
+        "GatherType": "OreSilver"
+      },
+      {
+        "Power": 0.25,
+        "GatherType": "OreGold"
+      },
+      {
+        "Power": 0.125,
+        "GatherType": "OreThorium"
+      },
+      {
+        "Power": 0.125,
+        "GatherType": "OreCobalt"
+      },
+      {
+        "Power": 0.084,
+        "GatherType": "OreAdamantite"
+      },
+      {
+        "Power": 0.063,
+        "GatherType": "OreMithril"
+      }
+    ],
+    "DurabilityLossBlockTypes": [
+      {
+        "BlockSets": [
+          "Stone",
+          "Rock",
+          "Ores",
+          "Soil"
+        ],
+        "DurabilityLossOnHit": 0.25
+      }
+    ]
+  },
+  "MaxDurability": 500,
+  "Recipe": {
+    "TimeSeconds": 3.5,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Iron",
+        "Quantity": 22
+      },
+      {
+        "ItemId": "Ingredient_Leather_Light",
+        "Quantity": 2
+      },
+      {
+        "ItemId": "Ingredient_Fabric_Scrap_Linen",
+        "Quantity": 2
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Workbench",
+        "Type": "Crafting",
+        "Categories": [
+          "Workbench_Tools"
+        ]
+      }
+    ]
+  }
+}

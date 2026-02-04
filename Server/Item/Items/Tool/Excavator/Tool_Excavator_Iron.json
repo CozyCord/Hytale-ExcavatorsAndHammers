@@ -1,0 +1,107 @@
+{
+  "TranslationProperties": {
+    "Name": "CozyStudios_MiningHammer.excavator.iron.name",
+    "Description": "CozyStudios_MiningHammer.excavator.description"
+  },
+  "Parent": "Tool_Excavator_Crude",
+  "Model": "Items/Tools/Excavator/excavator.blockymodel",
+  "Icon": "Icons/Items/Tools/Excavator/iron_excavator.png",
+  "Texture": "Items/Tools/Excavator/iron_excavator.png",
+  "Quality": "Uncommon",
+  "ItemLevel": 20,
+  "Tool": {
+    "Specs": [
+      {
+        "Power": 1,
+        "GatherType": "SoftBlocks"
+      },
+      {
+        "Power": 0.5,
+        "GatherType": "Soils",
+        "HitSoundLayer": "SFX_Shovel_T2_Impact_Nice"
+      },
+      {
+        "Power": 0.05,
+        "GatherType": "Woods"
+      },
+      {
+        "Power": 0.05,
+        "GatherType": "Rocks"
+      },
+      {
+        "Power": 0.5,
+        "GatherType": "Benches"
+      },
+      {
+        "Power": 0.046,
+        "GatherType": "OreCopper"
+      },
+      {
+        "Power": 0.042,
+        "GatherType": "OreIron"
+      },
+      {
+        "Power": 0.042,
+        "GatherType": "OreSilver"
+      },
+      {
+        "Power": 0.042,
+        "GatherType": "OreGold"
+      },
+      {
+        "Power": 0.036,
+        "GatherType": "OreThorium"
+      },
+      {
+        "Power": 0.036,
+        "GatherType": "OreCobalt"
+      },
+      {
+        "Power": 0.032,
+        "GatherType": "OreAdamantite"
+      },
+      {
+        "Power": 0.028,
+        "GatherType": "OreMithril"
+      }
+    ],
+    "DurabilityLossBlockTypes": [
+      {
+        "BlockSets": [
+          "Stone",
+          "Rock",
+          "Ores",
+          "Soil"
+        ],
+        "DurabilityLossOnHit": 0.25
+      }
+    ]
+  },
+  "MaxDurability": 500,
+  "Recipe": {
+    "TimeSeconds": 2.5,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Iron",
+        "Quantity": 15
+      },
+      {
+        "ItemId": "Ingredient_Leather_Light",
+        "Quantity": 3
+      },
+      {
+        "ItemId": "Ingredient_Stick",
+        "Quantity": 2
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Workbench",
+        "Type": "Crafting",
+        "Categories": [
+          "Workbench_Tools"
+        ]
+      }
+    ]
+  }
+}

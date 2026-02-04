@@ -1,0 +1,111 @@
+{
+  "TranslationProperties": {
+    "Name": "CozyStudios_MiningHammer.hammer.copper.name",
+    "Description": "CozyStudios_MiningHammer.hammer.description"
+  },
+  "Parent": "Tool_Mining_Hammer_Crude",
+  "Icon": "Icons/Items/Tools/Hammer/copper_hammer.png",
+  "Model": "Items/Tools/Hammer/hammer.blockymodel",
+  "Texture": "Items/Tools/Hammer/copper_hammer.png",
+  "Quality": "Common",
+  "ItemLevel": 12,
+  "Tool": {
+    "Specs": [
+      {
+        "Power": 1,
+        "GatherType": "SoftBlocks"
+      },
+      {
+        "Power": 0.3,
+        "GatherType": "Soils"
+      },
+      {
+        "Power": 0.05,
+        "GatherType": "Woods"
+      },
+      {
+        "Power": 0.35,
+        "GatherType": "Rocks",
+        "Quality": 2
+      },
+      {
+        "Power": 0.5,
+        "GatherType": "Benches"
+      },
+      {
+        "Power": 0.12,
+        "GatherType": "VolcanicRocks"
+      },
+      {
+        "Power": 0.25,
+        "GatherType": "OreCopper"
+      },
+      {
+        "Power": 0.125,
+        "GatherType": "OreIron"
+      },
+      {
+        "Power": 0.125,
+        "GatherType": "OreSilver"
+      },
+      {
+        "Power": 0.125,
+        "GatherType": "OreGold"
+      },
+      {
+        "Power": 0.084,
+        "GatherType": "OreThorium"
+      },
+      {
+        "Power": 0.084,
+        "GatherType": "OreCobalt"
+      },
+      {
+        "Power": 0.063,
+        "GatherType": "OreAdamantite"
+      },
+      {
+        "Power": 0.05,
+        "GatherType": "OreMithril"
+      }
+    ],
+    "DurabilityLossBlockTypes": [
+      {
+        "BlockSets": [
+          "Stone",
+          "Rock",
+          "Ores",
+          "Soil"
+        ],
+        "DurabilityLossOnHit": 0.25
+      }
+    ]
+  },
+  "MaxDurability": 400,
+  "Recipe": {
+    "TimeSeconds": 2,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Copper",
+        "Quantity": 12
+      },
+      {
+        "ResourceTypeId": "Wood_Trunk",
+        "Quantity": 6
+      },
+      {
+        "ItemId": "Ingredient_Fibre",
+        "Quantity": 1
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Workbench",
+        "Type": "Crafting",
+        "Categories": [
+          "Workbench_Tools"
+        ]
+      }
+    ]
+  }
+}

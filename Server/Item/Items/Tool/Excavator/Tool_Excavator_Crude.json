@@ -1,0 +1,178 @@
+{
+  "TranslationProperties": {
+    "Name": "CozyStudios_MiningHammer.excavator.crude.name",
+    "Description": "CozyStudios_MiningHammer.excavator.description"
+  },
+  "Categories": [
+    "Items.Tools"
+  ],
+  "Icon": "Icons/Items/Tools/Excavator/crude_excavator.png",
+  "Model": "Items/Tools/Excavator/crude_excavator.blockymodel",
+  "Texture": "Items/Tools/Excavator/crude_excavator.png",
+  "Quality": "Common",
+  "ItemLevel": 3,
+  "MaxStack": 1,
+  "PlayerAnimationsId": "Shovel",
+  "Tool": {
+    "Specs": [
+      {
+        "Power": 1,
+        "GatherType": "SoftBlocks"
+      },
+      {
+        "Power": 0.4,
+        "GatherType": "Soils"
+      },
+      {
+        "Power": 0.05,
+        "GatherType": "Woods"
+      },
+      {
+        "Power": 0.05,
+        "GatherType": "Rocks"
+      },
+      {
+        "Power": 0.5,
+        "GatherType": "Benches"
+      },
+      {
+        "Power": 0.017,
+        "GatherType": "VolcanicRocks"
+      },
+      {
+        "Power": 0.036,
+        "GatherType": "OreCopper"
+      },
+      {
+        "Power": 0.032,
+        "GatherType": "OreIron"
+      },
+      {
+        "Power": 0.032,
+        "GatherType": "OreSilver"
+      },
+      {
+        "Power": 0.032,
+        "GatherType": "OreGold"
+      },
+      {
+        "Power": 0.028,
+        "GatherType": "OreThorium"
+      },
+      {
+        "Power": 0.028,
+        "GatherType": "OreCobalt"
+      },
+      {
+        "Power": 0.025,
+        "GatherType": "OreAdamantite"
+      },
+      {
+        "Power": 0.023,
+        "GatherType": "OreMithril"
+      }
+    ],
+    "DurabilityLossBlockTypes": [
+      {
+        "BlockSets": [
+          "Stone",
+          "Rock",
+          "Ores",
+          "Soil"
+        ],
+        "DurabilityLossOnHit": 0.125
+      }
+    ]
+  },
+  "Utility": {
+    "Compatible": true
+  },
+  "Interactions": {
+    "Primary": "EH_Excavator_Attack"
+  },
+  "InteractionVars": {
+    "Block_Hit_Camera_Effects": {
+      "Interactions": [
+        {
+          "Type": "Simple",
+          "Effects": {
+            "CameraEffect": "Shovel_Dig"
+          }
+        }
+      ]
+    },
+    "EH_Excavator_Mine_Effect": {
+      "Interactions": [
+        {
+          "Parent": "EH_Excavator_Mine_Effect",
+          "Effects": {
+            "WorldSoundEventId": "SFX_Tool_T1_Swing",
+            "LocalSoundEventId": "SFX_Shovel_T1_Swing_RL_Local"
+          }
+        }
+      ]
+    },
+    "EH_Excavator_Mine_Damage": {
+      "Interactions": [
+        {
+          "Parent": "EH_Excavator_Mine_Damage",
+          "DamageCalculator": {
+            "Type": "Absolute",
+            "BaseDamage": {
+              "Physical": 5
+            }
+          },
+          "DamageEffects": {
+            "WorldSoundEventId": "SFX_Light_Melee_T1_Impact"
+          }
+        }
+      ]
+    }
+  },
+  "IconProperties": {
+    "Scale": 0.32,
+    "Translation": [
+      22.200001,
+      -21
+    ],
+    "Rotation": [
+      0,
+      180,
+      315
+    ]
+  },
+  "MaxDurability": 300,
+  "Tags": {
+    "Type": [
+      "Tool"
+    ]
+  },
+  "DroppedItemAnimation": "Items/Animations/Dropped/Dropped_Diagonal_Left.blockyanim",
+  "ItemSoundSetId": "ISS_Weapons_Wood",
+  "Recipe": {
+    "TimeSeconds": 2,
+    "Input": [
+      {
+        "ResourceTypeId": "Rubble",
+        "Quantity": 10
+      },
+      {
+        "ItemId": "Ingredient_Fibre",
+        "Quantity": 2
+      },
+      {
+        "ItemId": "Ingredient_Stick",
+        "Quantity": 2
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Workbench",
+        "Type": "Crafting",
+        "Categories": [
+          "Workbench_Tools"
+        ]
+      }
+    ]
+  }
+}

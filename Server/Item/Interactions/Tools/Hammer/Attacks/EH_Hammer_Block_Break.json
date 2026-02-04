@@ -1,0 +1,49 @@
+{
+  "Type": "Simple",
+  "$Comment": "Prepare Delay",
+  "RunTime": 0.083,
+  "Next": {
+    "Type": "Replace",
+    "Var": "Block_Radius_Int",
+    "DefaultOk": true,
+    "DefaultValue": {
+      "Interactions": [
+        {
+          "Type": "BlockRadius",
+          "Radius": [
+            1,
+            1,
+            0
+          ],
+          "ForBlock": {
+            "Interactions": [
+              {
+                "Type": "UseBlock",
+                "Failed": {
+                  "Type": "BreakBlock",
+                  "Tool": "Pickaxe",
+                  "UseLatestTarget": false
+                },
+                "Next": {
+                  "Type": "Replace",
+                  "Var": "Block_Hit_Camera_Effects",
+                  "DefaultOk": true,
+                  "DefaultValue": {
+                    "Interactions": [
+                      {
+                        "Type": "Simple",
+                        "Effects": {
+                          "CameraEffect": "Pickaxe_Mine_Impact"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
